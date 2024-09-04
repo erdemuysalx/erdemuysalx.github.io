@@ -1,0 +1,23 @@
+site_url: 'https://www.erdo.dev'
+site_name: 'erdo.dev'
+author_name: 'REU'
+
+directories:
+  projects: 'projects'
+  posts: 'posts'
+  pages: 'pages'
+  public: 'public'
+  output: 'build'
+  posts_output: 'build/posts'
+  projects_output: 'build/projects'
+  pages_output: 'build/'
+  
+files:
+  header: 'header.html'
+  footer: 'footer.html'
+  root_index: 'index.md'
+  posts_index: 'pages/posts.md'
+  projects_index: 'pages/projects.md'
+
+misc:
+  latest_posts_count: 4
