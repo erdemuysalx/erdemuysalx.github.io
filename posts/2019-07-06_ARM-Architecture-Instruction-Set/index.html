@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>ARM Development Envrinment Installation: ARM Keil & Code Composer Studio</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #282A36;
+			font-family: sans-serif, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+			max-width: 650px;
+			line-height: 1.5rem;
+			margin: 0 auto;
+			padding: 1rem;
+			word-wrap: break-word;
+		}
+
+		blockquote {
+			border-left: 2px solid;
+			padding-left: 0.5rem;
+		}
+
+		code {
+			font-family: monospace;
+			background-color: #44475A;
+			color: #ffffff;
+			border-radius: .2rem;
+			padding: .1rem;
+		}
+
+		pre {
+			border: 2px solid;
+			padding: .5rem;
+			overflow: auto;
+		}
+
+		pre:has(code) {
+			background-color: #44475A;
+			color: #ffffff;
+			border: 2px solid #f9f9f9;
+			border-radius: .2rem;
+			padding: .5rem;
+		}
+
+		table {
+			text-align: left;
+			width: 100%;
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		a {
+			cursor: pointer;
+			color: #bd93f9;
+			text-decoration: none;
+			border-bottom: 1px solid #bd93f9;
+		}
+
+		a:hover {
+			background-color: #bd93f9;
+			color: #ffffff;
+			border-bottom: 1px solid #bd93f9
+		}
+
+		h2 {
+			background-color: #bd93f9;
+			color: #ffffff;
+			display: inline-block;
+			margin-bottom: 0.0rem;
+			margin-top: 0.0rem;
+			padding: 0.2rem 0.5rem;
+		}
+
+		#logo a {
+			border-bottom: none;
+		}
+
+		#menu a {
+			border-bottom: none;
+		}
+
+		.posts,
+		#menu ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		#menu li {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.posts li {
+			margin-bottom: 0.5rem;
+		}
+
+		.posts li span {
+			display: block;
+			font-size: 90%;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1 id="logo"><a href="/" aria-label="Go to the homepage">~erdo.dev</a></h1>
+		<nav id="menu">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/posts">Posts</a></li>
+				<li><a href="/projects">Projects</a></li>
+			</ul>
+		</nav>
+	</header>
+	<hr><h1>ARM Architecture Instruction Set</h1>
+<p>2019-07-06</p>
+<p>In this article, finally, we will start to take a glance at ARM’s arithmetical, logical, data transfer, and branching instructions. But before that, you should check your microprocessor’s model and serial number. Instructions might differ according to these two numbers. The reason for this is that ARM has updated its designs due to technological developments.</p>
+<h2>Instruction Set</h2>
+<p>The arm instructions process data in the register. Therefore, the data must be transferred to the registers before arithmetic, logic, or other types of processing. This information is very important to us. The way to do this is to load data into registers by using load/store instructions. ARM instructions generally take three or two operands. To explain this with an example let’s check the syntax of Instructions:</p>
+<pre><code>INS Operan1, Operand2, Operand3
+</code></pre>
+<p>where:
+*   INS: Name of the instruction
+*   Operand1: Destination register (Operand getting result)
+*   Operand2: First register for operation (Operand getting 1st source)
+*   Operand3: Second register for operation (Operand getting 2nd source)</p>
+<p>Quick example;</p>
+<pre><code>ADD(INS) r0(Operand1), r1(Operand2), r2(Operand3)  
+// This_ instructions _set is basically adds r1 and r2 registers and writes the results into the r0 register.  
+// ! r0 = r1+r2;  (in C)
+</code></pre>
+<p>Some ARM instructions may also take some prefixes and suffixes.</p>
+<h2>Types of Instructions</h2>
+<p>ARM (Advanced RISC Machine) instructions can be broadly categorized into two primary types: <strong>Data Transfer and Process, Arithmetic and Logical Computation, and Barrel Control</strong> operations. These categories encompass the fundamental operations that ARM processors perform to manipulate data and control the flow of information within a system.</p>
+<h3>Data Transfer and Process Instructions</h3>
+<p>These instructions are almost available in every microprocessor as well as in ARM microprocessors. These are very simple to use. Basically, provide to load or store the desired initial values to the register before processing. The instruction duty and usage structure are as follows.</p>
+<p><strong>MOV:</strong> The <code>MOV</code> instruction copies the value of <code>Operand2</code> into <code>Rd</code>.</p>
+<p><strong>MVN:</strong> The <code>MVN</code> instruction takes the value of <code>Operand2</code>, performs a bitwise logical NOT operation on the value and places the result into <code>Rd</code>.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code>MOV{S}{cond} Rd, Operand2
+MOV{cond} Rd, #imm16
+MVN{S}{cond} Rd, Operand2
+</code></pre>
+<p><strong>Example:</strong>
+We can assign a register value as well as we can assign a constant number.</p>
+<pre><code>MOV r0, r1    
+MOV r0, 5  
+MVN r0, r1  // r0 = NOT(r1)
+</code></pre>
+<p>where:</p>
+<ul>
+<li>S: is an optional suffix. If S is specified, the condition code flags are updated on the result of the operation</li>
+<li>cond: is an optional condition code.</li>
+<li>Rd: is the destination register.</li>
+<li>Operand2: is a flexible second operand.</li>
+<li>imm 16: is any value in the range 0–65535. Immediate numbers are numerical constants.</li>
+</ul>
+<h3>Arithmetic and Logical Computation Instructions</h3>
+<h4>Arithmetic Computation Instructions</h4>
+<p>These instructions are fundamental arithmetic operations for all kinds of processors. They compute the sum (or difference), multiplication (or division)of two registers, and store the result in a register. Multiplication and division operations can also be performed via barrel shift.</p>
+<p><strong>ADD:</strong> The <code>ADD</code> instruction adds the value of <code>Register1</code> to<code>Register2</code>.</p>
+<p><strong>SUB:</strong> The <code>SUB</code> instruction subtracts the value of <code>Register2</code> from <code>Register1</code>.</p>
+<p><strong>MUL:</strong> The <code>MUL</code> instruction multiplies the value of <code>Register1</code> by<code>Register2</code>.</p>
+<p><strong>SDIV:</strong> The <code>SDIV</code> instruction divides the value of <code>Register1</code> by<code>Register2</code>.</p>
+<pre><code>Note: Division with a constant number might not be supported by all ARM processors.
+</code></pre>
+<p><strong>Syntax:</strong></p>
+<pre><code>ADD{S}{cond} Register0, Register1, Register2
+ADD Register1, #imm16  // 5
+SUB{S}{cond} Register3, Register4, Register5
+MUL Register0, Register1, Register2
+SDIV Register3, Register4, Register5
+</code></pre>
+<p><strong>Example:</strong></p>
+<p>Let’s write assembly instructions that perform the following operations.</p>
+<pre><code>result = (a + b) - (c + d);
+a = b \* b;
+c = d / e;
+</code></pre>
+<p>-</p>
+<pre><code>// result = (a + b) - (c + d);
+ADD   r0, r2, r3  // result = a + b;  (in C)
+ADD   r1, r4, r5  // temp= c + d;  (in C)
+SUB   r0, r0, r1  // result = result - temp;  (in C)
+MUL r0, r2, r3    // a = b * c; (only 32 bits stored)  (in C)
+SDIV  r0, r2, r4  // c = d / e; (signed divide)  (in C)
+</code></pre>
+<h4>Logic Computation Instructions</h4>
+<p>The ARM instruction set provides instructions such as AND, OR, XOR, and BIC, which sets, and clears the bits according to the need of the program. Usually, you find these as part of if-else, while statements in high-level languages.</p>
+<p><strong>AND:</strong> The <code>AND</code> instruction adds the value of <code>Register1</code> to <code>Register2</code>.</p>
+<p><strong>OR:</strong> The <code>OR</code> instruction subtracts the value of <code>Register2</code> from <code>Register1</code>.</p>
+<p><strong>XOR:</strong> The <code>XOR</code> instruction multiplies the value of <code>Register1</code> by <code>Register2</code>.</p>
+<p><strong>BIC:</strong> The <code>BIC</code> instruction divides the value of <code>Register1</code> by <code>Register2</code>.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code>AND Register0, Register1, Register2  // r0 = r1 &amp; r2;  (in C)   
+ORR Register3, Register4, Register5  // r3 = r4 | r5;  (in C)   
+EOR Register0, Register1, Register2  // r0 = r1 ^ r2;  (in C)  
+BIC Register3, Register4, Register5  // r3 = r4 &amp; (!r5);  (in C)
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code>//  r0 = 01101001    
+//  r1 = 11000111  
+AND r3, r0, r1; r3  // 01000001  
+ORR r3, r0, r1; r3  // 11101111   
+EOR r3, r0, r1; r3  // 10101110   
+BIC r3, r0, r1; r3  // 00101000
+</code></pre>
+<h3>Branch Control Instructions</h3>
+<p>These instructions change the flow of execution via jumping to another instruction or subroutine  such as conditional jump e.g., branch if register == 0.</p>
+<p><strong>Barrel Shifter:</strong> As we mentioned in our first articles, the ARM’s arithmetic logic unit has a 32-bit barrel shifter that is capable of shifting and rotating operations. To be able to do this, the value must be in the register Rm. Briefly, the results are pre-processed by the barrel shifter before being processed in ALU.</p>
+<pre><code>MOV r0, r0, LSL #1  // Multiply r0 by two  
+MOV r1, r1, LSR #2  // Divide r1 by four  
+MOV r2, r2, ASR #2  // Divide r2 by four(signed).
+</code></pre>
+<p>If you remember from digital electronic circuits, shifting a number 1 step left is equal to multiplying the number by 2. Shifting the number to 2 steps right means dividing the number by 4.</p>
+<p>The last column specifies how many cycle times each command takes. Although the basic logic of all barrel shifter instructions is the same, the only direction of shifting may vary. There are two types of usage of barrel shifters. These uses may be shifting by the value of any register or shifting by a specified fixed number.</p>
+<p>In the next article, I am planning to focus on the registers, CPU, and memory structure. Until then, I wish you no blue screen of death.</p>
+<p>Continue reading this series of articles:</p>
+<ul>
+<li><a href="https://erdo.dev/posts/2019-01-24_Introduction-to-ARM-Architecture">Introduction to ARM Architecture</a></li>
+<li><a href="https://erdo.dev/posts/2019-01-24_ARM-Development-Environment-Installation-ARM-Keil-Code-Composer-Studio">ARM Development Environment Installation: ARM Keil Code &amp; Code Composer Studio</a></li>
+</ul>
+<h2>References</h2>
+<ul>
+<li>[1]   <a href="https://cseweb.ucsd.edu/classes/fa15/cse30/lectures/lec7_detailed.pdf">https://cseweb.ucsd.edu/classes/fa15/cse30/lectures/lec7_detailed.pdf</a></li>
+<li>[2]   <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.kui0100a/armasm_cihcjfjg.htm">http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.kui0100a/armasm_cihcjfjg.htm</a></li>
+<li>[3]   <a href="http://www.davespace.co.uk/arm/introduction-to-arm/barrel-shifter.html">http://www.davespace.co.uk/arm/introduction-to-arm/barrel-shifter.html</a></li>
+</ul><hr />
+<footer role="contentinfo">
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><br>
+        The content for this site is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this site</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+</body>

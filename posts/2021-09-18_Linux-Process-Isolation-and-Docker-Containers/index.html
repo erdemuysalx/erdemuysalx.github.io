@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>ARM Development Envrinment Installation: ARM Keil & Code Composer Studio</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #282A36;
+			font-family: sans-serif, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+			max-width: 650px;
+			line-height: 1.5rem;
+			margin: 0 auto;
+			padding: 1rem;
+			word-wrap: break-word;
+		}
+
+		blockquote {
+			border-left: 2px solid;
+			padding-left: 0.5rem;
+		}
+
+		code {
+			font-family: monospace;
+			background-color: #44475A;
+			color: #ffffff;
+			border-radius: .2rem;
+			padding: .1rem;
+		}
+
+		pre {
+			border: 2px solid;
+			padding: .5rem;
+			overflow: auto;
+		}
+
+		pre:has(code) {
+			background-color: #44475A;
+			color: #ffffff;
+			border: 2px solid #f9f9f9;
+			border-radius: .2rem;
+			padding: .5rem;
+		}
+
+		table {
+			text-align: left;
+			width: 100%;
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		a {
+			cursor: pointer;
+			color: #bd93f9;
+			text-decoration: none;
+			border-bottom: 1px solid #bd93f9;
+		}
+
+		a:hover {
+			background-color: #bd93f9;
+			color: #ffffff;
+			border-bottom: 1px solid #bd93f9
+		}
+
+		h2 {
+			background-color: #bd93f9;
+			color: #ffffff;
+			display: inline-block;
+			margin-bottom: 0.0rem;
+			margin-top: 0.0rem;
+			padding: 0.2rem 0.5rem;
+		}
+
+		#logo a {
+			border-bottom: none;
+		}
+
+		#menu a {
+			border-bottom: none;
+		}
+
+		.posts,
+		#menu ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		#menu li {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.posts li {
+			margin-bottom: 0.5rem;
+		}
+
+		.posts li span {
+			display: block;
+			font-size: 90%;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1 id="logo"><a href="/" aria-label="Go to the homepage">~erdo.dev</a></h1>
+		<nav id="menu">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/posts">Posts</a></li>
+				<li><a href="/projects">Projects</a></li>
+			</ul>
+		</nav>
+	</header>
+	<hr><h1>Linux Process Isolation and Docker Containers</h1>
+<p>2021-09-18</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*ekWrA5PWqYMHgc_82A5BNQ.png" /></p>
+<p>In today's rapidly evolving technological landscape, managing software environments and ensuring consistency across various systems are paramount. This need has led to the widespread adoption of containerization - a method that provides a lightweight, efficient solution for isolating applications and their dependencies. Containers have become a cornerstone of modern software development and deployment, offering significant advantages over traditional virtual machines.</p>
+<p>This article delves into the fundamentals of Linux process isolation and how Docker containers leverage this concept. We will explore the key techniques that enable process isolation, such as <code>chroot</code>, namespaces, and cgroups, and compare them with virtual machines to understand the distinct advantages of containers. Additionally, we will cover practical aspects of Docker, from installation to managing containers, illustrating how it simplifies application deployment and enhances development workflows. By understanding these concepts, we can appreciate why containers are a preferred choice for many developers and organizations today.</p>
+<h1>Containers</h1>
+<p>Containers are an abstraction at the app layer that packages code and dependencies together. Multiple containers can run on the same machine and share the OS kernel with other containers, each running as isolated processes in user space. In the end, the container is a process that runs on the OS kernel but with a little extra isolation.</p>
+<h1>Virtual Machines</h1>
+<p>Virtual machines (VMs) are an abstraction of physical hardware turning one server into many servers, the hypervisor allows multiple VMs to run on a single machine. Each VM includes a full copy of an operating system, the application, necessary binaries, and libraries - taking up tens of GBs. VMs can also be slow to boot.</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/0*VgBN-MJj_eXYjEtY.png" /></p>
+<h2>Why Containers?</h2>
+<ul>
+<li>Isolation: Containers are independent of the OS behind the container.</li>
+<li>Repeatability: Containers will run the same in another machine since everything your app needs is packaged within the container.</li>
+<li>Security: A container can not access either processes or containers on the OS, each one has an individual process namespace.</li>
+<li>Clean setup/remove: Set up or remove the whole app and its dependencies with only one command.</li>
+</ul>
+<h2>Advantages of Containers</h2>
+<ul>
+<li>Run in seconds instead of minutes.</li>
+<li>Consuming fewer resources results in less disk space.</li>
+<li>Uses less memory.</li>
+<li>Does not need a full OS.</li>
+<li>Provide faster deployment.</li>
+<li>Quick testing.</li>
+</ul>
+<h2>How do Containers work?</h2>
+<p>There is no such concept as the container in Linux. We can verify this by grepping the source code of Linux. But then how do these containers work? We as developers, use interfaces called container runtimes such as Docker to create what we call containers in a more user-friendly way. These container runtimes are just programs that make system calls to the OS kernel. Therefore Docker is a program that makes system calls to the Linux kernel for creating containers easily as we desire. Docker is not the main thing behind the containers, it is just an interface that presents our containers in a language that we can understand. So how the containers are implemented in the Linux kernel?</p>
+<h3>1. Isolation</h3>
+<p>Restricting what the process sees.</p>
+<p><strong>chroot:</strong> The chroot is an operation on Unix-based operating systems that changes the current root directory, as its name refers to it (change root), for the selected running process and children of that process. It is the oldest restriction/isolation operation in Unix-based operating systems among the other utility operations. It basically creates an illusionistic root directory that isolates the specific command i.e. process from the other processes. This illusionistic fake root directory is often called <em>chroot jail</em>.</p>
+<p><strong>unshare:</strong> The unshare is an operation that has been a part of the Linux kernel since 2002 that helps us create namespaces. Just like the chroot operation, the unshare operation also provides isolation between processes. There are different types of namespaces as follows:</p>
+<ul>
+<li>User Namespace</li>
+<li>Process ID (PID) Namespace</li>
+<li>Network Namespace</li>
+<li>Mount Namespace</li>
+<li>Interprocess Communication (IPC) Namespace</li>
+</ul>
+<p>Each namespace type has its unique properties that differ from others.</p>
+<h3>2. Resource Controls</h3>
+<p>Restricting the resources used by the process.</p>
+<p><strong>cgroups:</strong> The cgroups, also known as change groups, is a Linux kernel operation that allows the creation of a hierarchy for a selected set of processes. The key feature of the cgroups operation that distinguishes it from the others is hierarchical management and allocation of system resources like CPU, memory, and storage for the selected process instances of the groups.</p>
+<h1>What is Docker?</h1>
+<ul>
+<li>Docker is a tool for running applications in an isolated environment.</li>
+<li>It is similar to a virtual machine.</li>
+<li>The app runs in the same environment regardless of which machine it is since it is isolated.</li>
+<li>The app works on any machine regardless of which OS it uses, what type of hardware is equipped with etc.</li>
+<li>Docker is a standard for software deployment nowadays.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*pebo5ZC35HDY6osrty5F8A.png" /></p>
+<h2>Install Docker</h2>
+<p>Since there are a bunch of sources about this on the internet, I will not cover it in this article. I recommend you follow the official Docker page for the installation.</p>
+<p><a href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a></p>
+<h2>Docker Image</h2>
+<p>Image is a template for creating an environment of your choice (DB, web app, or others). It is a snapshot of your application that has everything needed to run it.</p>
+<h2>Container</h2>
+<p>Running instances of images called containers.</p>
+<h2>Pulling an Image</h2>
+<pre><code>docker pull nginx  
+docker images  # list the images on your machine  
+docker image ls  # list the images on your machine
+</code></pre>
+<h2>Running a Container</h2>
+<pre><code>docker run nginx:latest  # run the container  
+docker run — name given\_name nginx:latest  #give a name to container  
+docker container ls or docker ps  # list the running containers
+</code></pre>
+<h2>Exposing Ports</h2>
+<p>Since containers work in an isolated environment, most of the time, you might want to expose some ports in order to view or interact with your applications.</p>
+<p><code>-p</code> flag manages the port relations of your Docker container. For example, the following command line exposes port 80 of the Docker container and maps it to localhost’s 8080 port:</p>
+<pre><code>docker run -d -p 8080:80 nginx:latest
+</code></pre>
+<p>We can also expose multiple ports for a single Docker container using more than one <code>-p</code> flag. See the following command line:</p>
+<pre><code>docker run -d -p 3000:80 -p 8080:80 nginx:latest
+</code></pre>
+<h2>Managing Containers</h2>
+<pre><code>docker ps  # list the running container  
+docker ps -a  # list all containers  
+docker ps -q  # list the containers with only numeric ids  
+docker stop container\_id  # stops the container with indicated id  
+docker start container\_id  # starts the container with indicated id  
+docker rm container\_id  # delete the container with indicated id
+</code></pre>
+<h2>Volumes</h2>
+<p>Volumes are the utility functions for Docker containers that allow sharing of data, files &amp; folders, between host and container or between containers.</p>
+<h3>Volumes Between Host and Container</h3>
+<pre><code>docker -run — name cwebsite -v /Users/user/Desktop/website:/usr/share/nginx/html:ro -d -p 8080:80 nginx:latest
+</code></pre>
+<ul>
+<li><strong>ro:</strong> read-only (container only allowed to read files and folders)</li>
+<li><strong>wo:</strong> write-only (container only allowed to write files and folders)</li>
+</ul>
+<p>If you don't specify it will allow both writing and reading. If we create a folder or a file in the host that will appear in the container as well.</p>
+<h3>Volumes Between Containers</h3>
+<pre><code>docker run --name website-copy --volumes-from website -d -p 8081:80 nginx:latest
+</code></pre>
+<h2>Docker Specific Files</h2>
+<p><strong>Dockerfile:</strong> A Dockerfile is a kind of manifest that describes what should that docker image contain, and how it should be constructed.</p>
+<ul>
+<li>Allow us to build our images.</li>
+<li>Series of steps that define your Docker image.</li>
+<li>Dockerfile keywords: FROM, WORKDIR, ADD, RUN, CMD, etc.</li>
+</ul>
+<p>To create an image with a Dockerfile we simply run this command:</p>
+<pre><code>docker build -t tag:version path\_of\_dockerfile
+</code></pre>
+<p><strong>.dockerignore:</strong> You have designed an app and coded it with your favorite programming language. Now you want to deploy it using Docker containerization technology. At the same time, you pushed your project to GitHub, thus your project folder contains some .git folders that are required for the GitHub repository. These types of folders or files are unnecessary for the deployment process. That’s why we do not want to include them in our Docker image. For this sake, we simply add the names of folders and files that we do not want to include in our Docker image to the .dockerignore file.</p>
+<h2>Build an Image for Your Python App</h2>
+<p>Let’s say you want to have a web app written with Python programming language using the Flask framework.</p>
+<pre><code>cd /path/to/python-docker
+pip3 install Flask
+pip3 freeze &gt; requirements.txt$ touch app.py
+</code></pre>
+<p>After following the steps above, you have created a Python file and you are ready to write your code. In this article, for the sake of simplicity, we are going to write a few lines of code that make a simple web request, a Hello World web app. Now you can open your project file with your favorite IDE or text editor selection like VSCode or Sublime, etc., and put the code below inside the file.</p>
+<pre><code>from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello, Docker!'
+</code></pre>
+<p>You have tested the app by typing the run command <code>python3 -m flask run</code> . When you run this command it lists that the app is running on your local machine with a port number 5000. You tested and confirmed that the app is working properly as you desired by opening a new browser and navigating to <a href="http://localhost:5000">http://localhost:5000</a>.</p>
+<p>Now you want to launch and serve this web app to users around the world. The traditional way of doing this is serving your app on a server like Amazon, Google, etc. Using this way is working, but it is not efficient because when you need updates or bug fixes you need to connect to the server for example via SSH and do what you need just like on your local machine which causes interruption on your served app.</p>
+<p>Therefore you decided to deploy your app using much more modern technology i.e. Docker. Of course, there are more advanced ways of deploying apps using different stacks of technologies like Docker + Kubernetes + Jenkins CI/CD tools, etc. but these are not within the scope of this article and will not be covered here. Now your deployment technology is Docker and for deploying your web app using Docker, you will eventually need a Dockerfile which we discussed in earlier titles.</p>
+<pre><code>FROM python:3.8-slim-buster
+WORKDIR /app
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+COPY . .
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+</code></pre>
+<p>You can now build your web app’s Docker image using the Dockerfile above and by typing the command <code>docker build -t python-docket:v0</code> . Afterward, you achieve a Docker image that wraps your web app and it is ready to deploy.</p>
+<p>Thank you for reading this article, and I will see you in the next one!</p>
+<h2>References</h2>
+<ul>
+<li>[1] <a href="https://man7.org/linux/man-pages/man2/chroot.2.html">https://man7.org/linux/man-pages/man2/chroot.2.html</a></li>
+<li>[2] <a href="https://www.ibm.com/docs/en/zos/2.2.0?topic=descriptions-chroot-change-root-directory-execution-command">https://www.ibm.com/docs/en/zos/2.2.0?topic=descriptions-chroot-change-root-directory-execution-command</a></li>
+<li>[3] <a href="https://man7.org/linux/man-pages/man1/unshare.1.html">https://man7.org/linux/man-pages/man1/unshare.1.html</a></li>
+<li>[4] <a href="https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/">https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/</a></li>
+<li>[5] <a href="https://man7.org/linux/man-pages/man7/cgroups.7.html">https://man7.org/linux/man-pages/man7/cgroups.7.html</a></li>
+<li>[6] <a href="https://www.ibm.com/docs/en/spectrum-symphony/7.3.0?topic=limits-control-groups-cgroups-limiting-resource-usage-linux">https://www.ibm.com/docs/en/spectrum-symphony/7.3.0?topic=limits-control-groups-cgroups-limiting-resource-usage-linux</a></li>
+<li>[7] <a href="https://docs.docker.com/get-started/overview/">https://docs.docker.com/get-started/overview/</a></li>
+<li>[8] <a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a></li>
+<li>[9] <a href="https://docs.docker.com/language/python/build-images/">https://docs.docker.com/language/python/build-images/</a></li>
+</ul><hr />
+<footer role="contentinfo">
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><br>
+        The content for this site is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this site</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+</body>

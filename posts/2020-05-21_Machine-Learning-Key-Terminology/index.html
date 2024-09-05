@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>ARM Development Envrinment Installation: ARM Keil & Code Composer Studio</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #282A36;
+			font-family: sans-serif, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+			max-width: 650px;
+			line-height: 1.5rem;
+			margin: 0 auto;
+			padding: 1rem;
+			word-wrap: break-word;
+		}
+
+		blockquote {
+			border-left: 2px solid;
+			padding-left: 0.5rem;
+		}
+
+		code {
+			font-family: monospace;
+			background-color: #44475A;
+			color: #ffffff;
+			border-radius: .2rem;
+			padding: .1rem;
+		}
+
+		pre {
+			border: 2px solid;
+			padding: .5rem;
+			overflow: auto;
+		}
+
+		pre:has(code) {
+			background-color: #44475A;
+			color: #ffffff;
+			border: 2px solid #f9f9f9;
+			border-radius: .2rem;
+			padding: .5rem;
+		}
+
+		table {
+			text-align: left;
+			width: 100%;
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		a {
+			cursor: pointer;
+			color: #bd93f9;
+			text-decoration: none;
+			border-bottom: 1px solid #bd93f9;
+		}
+
+		a:hover {
+			background-color: #bd93f9;
+			color: #ffffff;
+			border-bottom: 1px solid #bd93f9
+		}
+
+		h2 {
+			background-color: #bd93f9;
+			color: #ffffff;
+			display: inline-block;
+			margin-bottom: 0.0rem;
+			margin-top: 0.0rem;
+			padding: 0.2rem 0.5rem;
+		}
+
+		#logo a {
+			border-bottom: none;
+		}
+
+		#menu a {
+			border-bottom: none;
+		}
+
+		.posts,
+		#menu ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		#menu li {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.posts li {
+			margin-bottom: 0.5rem;
+		}
+
+		.posts li span {
+			display: block;
+			font-size: 90%;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1 id="logo"><a href="/" aria-label="Go to the homepage">~erdo.dev</a></h1>
+		<nav id="menu">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/posts">Posts</a></li>
+				<li><a href="/projects">Projects</a></li>
+			</ul>
+		</nav>
+	</header>
+	<hr><h1>Machine Learning Key Terminology</h1>
+<p>2020-05-21</p>
+<p>Machine Learning domain is very fascinating and it is becoming very powerful and useful technology in today’s world. Even if you are not directly working on machine learning, in somehow you can touch some part of machine learning in any project. Since machine learning is a very wide open space, it is not possible to learn all of the keywords and the theory behind it for those who are not having expertise area on ML. Which is why I am writing this article, to make those people understand or simply give them a insight of simple concepts in machine learning. I explained general aspect of AI, Machine Learning and Deep Learning on my previous article, <a href="https://medium.com/@erdemuysal13/the-rise-of-ai-what-is-ai-d3f796a1c153">(Introduction to AI, ML, and DL)</a>. So this will be involved with only Machine Learning. Let’s begin!</p>
+<h3>Key Terminology</h3>
+<p><strong>Supervised Learning:</strong> Supervised learning is where you have features and corresponding labels and you use an algorithm to learn the parameters for mapping function from the features to the labels.</p>
+<p><strong>Unsupervised Learning:</strong> Unsupervised learning is where you have features but not corresponding labels.</p>
+<p><strong>Semi-Supervised Learning:</strong> Semi-supervised learning is where you have features with corresponding labels and without labels. Generally, these kinds of models have more unlabeled examples than labeled ones.</p>
+<p><strong>Regression:</strong> A regression model predicts continuous, or numerical values. The numerical value could be the price of a house, the temperature of the weather, etc. Regression models can be grouped under supervised learning. Some of the regression algorithms are Linear and Polynomial Regression, Decision Trees, and Random Forest.</p>
+<p><strong>Classification:</strong> A classification model predicts discrete, or categorical values. The categorical value could be dog or cat, disease or not disease, etc. Classification models can be grouped under supervised learning. Some of the classification algorithms are KNN (K-Nearest Neighbour), Trees, SVM and Logistic Regression.</p>
+<p><strong>Clustering:</strong> A clustering model discovers the inherent groupings in continuous data according to similar features. An example could be the grouping of customers by purchasing behavior. Clustering models can be grouped under unsupervised learning. Some of the Clustering algorithms are K-Means and PCA.</p>
+<p><strong>Association:</strong> An association model discovers rules that describe large partitions of categorical data. An example could be: people that who buy suits also tend to buy ties. Hidden Markov Model and FP-Growth. Association models can be grouped under unsupervised learning.</p>
+<p><strong>Models:</strong> A model defines the mapping relationship between features and labels. The model uses the parameters to make a prediction.</p>
+<p><strong>Labels</strong>: A label is the resultant value or category variable we are predicting (mostly denoted as 'y') as a result of the machine learning model. The label could be the object shown in an image, the future temperature value of weather, or the next word in a text or music lyrics.</p>
+<p><strong>Features</strong>: A feature is an input variable (mostly denoted as 'x') that we use for feeding the machine learning model. The features could be the pixels of an image, past temperature and humidity values of weather, or words in a text or music lyrics.</p>
+<p><strong>Examples</strong>: An example is the set of features and its corresponding label. An example could be the pixels of an image(features) and the object (label) inside this image.</p>
+<p><strong>Parameters:</strong> Parameters are the weights and biases that we are trying to calculate and set their most appropriate values to make a good prediction at the end of the learning process.</p>
+<p><strong>Hyper-Parameters:</strong> Hyper-parameters are the parameters that you are tuning by hand to make the model more predictive. Some of them are learning rate, epoch, batch size, and so on.</p>
+<p><strong>Accuracy:</strong> Accuracy is the one of model metrics that tell us how good our model is at making predictions.</p>
+<h3>References</h3>
+<ul>
+<li>[1] <a href="https://machinelearningmastery.com/classification-versus-regression-in-machine-learning/">https://machinelearningmastery.com/classification-versus-regression-in-machine-learning/</a></li>
+<li>[2] <a href="https://developers.google.com/machine-learning/crash-course">https://developers.google.com/machine-learning/crash-course</a></li>
+</ul><hr />
+<footer role="contentinfo">
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><br>
+        The content for this site is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this site</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+</body>

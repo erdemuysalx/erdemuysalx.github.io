@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>ARM Development Envrinment Installation: ARM Keil & Code Composer Studio</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #282A36;
+			font-family: sans-serif, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+			max-width: 650px;
+			line-height: 1.5rem;
+			margin: 0 auto;
+			padding: 1rem;
+			word-wrap: break-word;
+		}
+
+		blockquote {
+			border-left: 2px solid;
+			padding-left: 0.5rem;
+		}
+
+		code {
+			font-family: monospace;
+			background-color: #44475A;
+			color: #ffffff;
+			border-radius: .2rem;
+			padding: .1rem;
+		}
+
+		pre {
+			border: 2px solid;
+			padding: .5rem;
+			overflow: auto;
+		}
+
+		pre:has(code) {
+			background-color: #44475A;
+			color: #ffffff;
+			border: 2px solid #f9f9f9;
+			border-radius: .2rem;
+			padding: .5rem;
+		}
+
+		table {
+			text-align: left;
+			width: 100%;
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		a {
+			cursor: pointer;
+			color: #bd93f9;
+			text-decoration: none;
+			border-bottom: 1px solid #bd93f9;
+		}
+
+		a:hover {
+			background-color: #bd93f9;
+			color: #ffffff;
+			border-bottom: 1px solid #bd93f9
+		}
+
+		h2 {
+			background-color: #bd93f9;
+			color: #ffffff;
+			display: inline-block;
+			margin-bottom: 0.0rem;
+			margin-top: 0.0rem;
+			padding: 0.2rem 0.5rem;
+		}
+
+		#logo a {
+			border-bottom: none;
+		}
+
+		#menu a {
+			border-bottom: none;
+		}
+
+		.posts,
+		#menu ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		#menu li {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.posts li {
+			margin-bottom: 0.5rem;
+		}
+
+		.posts li span {
+			display: block;
+			font-size: 90%;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1 id="logo"><a href="/" aria-label="Go to the homepage">~erdo.dev</a></h1>
+		<nav id="menu">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/posts">Posts</a></li>
+				<li><a href="/projects">Projects</a></li>
+			</ul>
+		</nav>
+	</header>
+	<hr><h1>Introduction to ARM Architecture</h1>
+<p>2019-01-24</p>
+<p><img alt="Figure is taken from Peter Howkings" src="https://cdn-images-1.medium.com/max/800/1*yVLT0ywWHW_PJ5VsiXNW9w.jpeg" /></p>
+<p>Anyone interested in embedded systems started to hear these two terms frequently. These are ARM and Embedded Linux. No longer, does everyone go towards work in these areas. Writing code in a free medium, when merging with the ease of getting rid of software licenses that cost millions, Embedded Linux started to gain popularity. As you all know, ARM architecture is very popular in the world and most projects use ARM-based processors with embedded systems.</p>
+<p>Throughout this article series, I would like to share my knowledge about ARM architecture and microprocessors that I learned during my exchange period at the Tampere University of Technology. While sharing the pieces of information I have learned, of course, I can make mistakes, also sometimes I can give incomplete information. Please feel free to contact me if you can correct the places you see wrong. After making our first explanations, let's get into the main topic.</p>
+<h2>What is ARM?</h2>
+<p>ARM is an architecture and its name refers to a company that invented ARM. This architecture was designed in 1983 by Acorn Computers Ltd. under the name of ARM1 (Acorn RISC Machine 1) and released in 1985. The following year, the company released 32-bit ARM2 and it created a tremendous impression with its simple and practical structure. In 1990, the company changed its name to Advanced RISC Machines Ltd. Later in 1998, the company changed its name again and ARM Ltd. is used today.</p>
+<p>In addition to its 32-bit architecture, its low cost has resulted in the creation of processor cores that are very popular today. ARM has been able to license the cores produced by various companies, thus enabling them to perform various applications. In other words, ARM does not produce an integrated circuit. Instead, many companies, such as Apple, Samsung, Hewlett-Packard, Qualcomm, Texas Instruments, NXP, Atmel, and STM have developed ARM kernels and improved their implementation, or launched their ARM-based processors.</p>
+<p>We will talk about ARM commands in our article series. C programming examples with ARM might take place, but for now, we will continue with the ARM instruction set. To get to know a microprocessor, I think it is possible to learn its instruction set and registers. If you already know C programming, you can use this information more effectively.</p>
+<p>ARM command sets are divided into 2 sub-sections, 16-bit THUMB, and 32-bit ARM instruction sets. We will first refer to 32-bit instruction sets. I do not intend to use any computer or board during this process, but if I can find the time, I can do a few complementary applications and share the images. The development kit I have in ARM applications is shown below.</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*yIQPbYsexgheFMqO-n3lfA.jpeg" /></p>
+<h2>ARM’s Features</h2>
+<p>ARM is a RISC (Reduced Instruction Set Computer) class processor, ie the command set is a reduced processor. Let's explain why it's not exactly the RISC processor. Firstly it has 32-bit registers from r1 to r16, and we can control all instruction sets conditionally. Also, it has a 32-bit barrel shifter, which is known as a combinational circuit, ie it allows several operations in a clock pulse independent from the clock signal. All these features do not make the ARM processors fully RISC-class microprocessors.
+The ARM has a total of seven operating modes.</p>
+<ul>
+<li>
+<ol>
+<li>Use Mode</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>Fast Interrupt (FIQ) Mode</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>Interrupt (IRQ) Mode</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>Supervisor Mode</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>Abort Mode</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>System Mode</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>Undefined Mode</li>
+</ol>
+</li>
+</ul>
+<p>The ARM consists of thirty-seven registers. The registers are arranged in partially overlapping banks. There is a different register bank for each processor mode. These registers are not all accessible at the same time. The processor state and operating mode determine which registers are available to the programmer.</p>
+<ul>
+<li>Thirty-one of these registers have 32-bit general-purpose registers,</li>
+<li>Six are status registers,</li>
+<li>The ARM-state register set contains sixteen directly accessible (programmer-capable) registers, r0 to r15.</li>
+</ul>
+<p>In general, ARM has a small-endian system but can be set as big-endian if desired.</p>
+<p>I think it’s enough for today. In the next article, we will touch on technical issues. In order to better understand, it is useful for the readers to reinforce their knowledge by repeating terms such as RISC, Registers, Little Endian and Big Endian. See you in our next articles.</p>
+<p>Continue reading this series of articles;</p>
+<ul>
+<li><a href="https://erdo.dev/posts/2019-01-24_ARM-Development-Environment-Installation-ARM-Keil-Code-Composer-Studio">ARM Development Environment Installation: ARM Keil &amp; Code Composer Studio</a></li>
+<li><a href="https://erdo.dev/posts/2019-07-06_ARM-Architecture-Instruction-Set">ARM Architecture Instruction Set</a></li>
+</ul>
+<h2>References</h2>
+<ul>
+<li>[1]   <a href="https://en.wikipedia.org/wiki/ARM_architecture">https://en.wikipedia.org/wiki/ARM_architecture</a></li>
+<li>[2]   <a href="https://en.wikipedia.org/wiki/Arm_Holdings">https://en.wikipedia.org/wiki/Arm_Holdings</a></li>
+<li>[3]   <a href="http://www.keil.com/support/man/docs/armasm/armasm_dom1359731128950.htm">http://www.keil.com/support/man/docs/armasm/armasm_dom1359731128950.htm</a></li>
+<li>[4]   <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0210c/Cihhcjia.html">http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0210c/Cihhcjia.html</a></li>
+</ul><hr />
+<footer role="contentinfo">
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><br>
+        The content for this site is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this site</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+</body>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>ARM Development Envrinment Installation: ARM Keil & Code Composer Studio</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #282A36;
+			font-family: sans-serif, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+			max-width: 650px;
+			line-height: 1.5rem;
+			margin: 0 auto;
+			padding: 1rem;
+			word-wrap: break-word;
+		}
+
+		blockquote {
+			border-left: 2px solid;
+			padding-left: 0.5rem;
+		}
+
+		code {
+			font-family: monospace;
+			background-color: #44475A;
+			color: #ffffff;
+			border-radius: .2rem;
+			padding: .1rem;
+		}
+
+		pre {
+			border: 2px solid;
+			padding: .5rem;
+			overflow: auto;
+		}
+
+		pre:has(code) {
+			background-color: #44475A;
+			color: #ffffff;
+			border: 2px solid #f9f9f9;
+			border-radius: .2rem;
+			padding: .5rem;
+		}
+
+		table {
+			text-align: left;
+			width: 100%;
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		a {
+			cursor: pointer;
+			color: #bd93f9;
+			text-decoration: none;
+			border-bottom: 1px solid #bd93f9;
+		}
+
+		a:hover {
+			background-color: #bd93f9;
+			color: #ffffff;
+			border-bottom: 1px solid #bd93f9
+		}
+
+		h2 {
+			background-color: #bd93f9;
+			color: #ffffff;
+			display: inline-block;
+			margin-bottom: 0.0rem;
+			margin-top: 0.0rem;
+			padding: 0.2rem 0.5rem;
+		}
+
+		#logo a {
+			border-bottom: none;
+		}
+
+		#menu a {
+			border-bottom: none;
+		}
+
+		.posts,
+		#menu ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		#menu li {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.posts li {
+			margin-bottom: 0.5rem;
+		}
+
+		.posts li span {
+			display: block;
+			font-size: 90%;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1 id="logo"><a href="/" aria-label="Go to the homepage">~erdo.dev</a></h1>
+		<nav id="menu">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/posts">Posts</a></li>
+				<li><a href="/projects">Projects</a></li>
+			</ul>
+		</nav>
+	</header>
+	<hr><h1>ARM Development Envrinment Installation: ARM Keil &amp; Code Composer Studio</h1>
+<p>2019-01-24</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*-OnOzyRgSQl9x64x2rlT7Q.png" /></p>
+<p>In the previous article, I said that for this article we’ll switch to writing code, but, I thought it would be more appropriate to give the programs that we can use for coding first. So I’m going to explain what program we’re going to use in this article by deferring the code writing to the next post.</p>
+<p>Since we use an ARM-based microcontroller called Stellaris LM4F120 we can use either ARM Keil or Texas Instrument's Code Composer Studio. I will show you how to install both ARM Keil and Code Composer Studio. For programming ARM processors, with C programming language or assembly, both of these two options are pretty good.</p>
+<h2>ARM Keil</h2>
+<p>Follow this section if you want to use ARM Keil as your IDE. Currently, the latest version is <strong>V5.26</strong>, so I am going to continue with it.</p>
+<p>Go here for downloading; <a href="https://www.keil.com/demo/eval/arm.htm#/DOWNLOAD">ARM Keil</a>.</p>
+<ul>
+<li>Right-click on MDK526.EXE and save it to your computer.</li>
+<li>Wait until downloads completely.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*qHOMyMZUsogF3sRYWmMW3g.png" /></p>
+<ul>
+<li>Run the MDK526.EXE file and click the next button.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*C0k2UY-SiiW8Rw_dxL0oPA.png" /></p>
+<ul>
+<li>Accept the Licence Agreement and then click the next button.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*cf9Du1sYpRVNe945nXdEdg.png" /></p>
+<ul>
+<li>Choose a setup directory.</li>
+<li>Make sure that there are no spaces in the directory names that go to the installation folder.</li>
+<li>Click the next button.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*trDewKPzBdxLTWtCdU2MtA.png" /></p>
+<ul>
+<li>Type the following fields and then click the next button.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*_hiGJSg7HARBWs3ANEguYA.png" /></p>
+<ul>
+<li>Wait until installation is finished.</li>
+<li>After you see and click the finish button, you can click the Keil icon and run.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*yz0436215pz1JdS_hCUy9w.png" /></p>
+<ul>
+<li>Welcome to Arm Keil uVision5!</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*3RiQe8J9xjMq4RYMZ0hnYg.png" /></p>
+<p>Here is a hint for you. When you want to create a project if you see your device is not in the devices list go to this <a href="https://www.keil.com/dd2/pack/">link</a> and download a particular device package that is suitable for your microcontroller.</p>
+<p>For my particular device, I downloaded the TI family package and executed it.</p>
+<p>Now our development medium is ready for new projects.</p>
+<h2>Code Composer Studio (CCS)</h2>
+<p>Follow this section if you want to use Code Composer Studio as your IDE. Currently, the latest version is <strong>8.3.0.00009</strong>, so I am going to continue with it.</p>
+<p>Go here for downloading; <a href="http://processors.wiki.ti.com/index.php/Download_CCS">CCS</a>.</p>
+<ul>
+<li>Make a selection according to your operating system.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*Sd3JysmRzKddIOU8aLonvg.png" /></p>
+<ul>
+<li>Unzip the WinRAR file that you have downloaded.</li>
+<li>Double-click on ccs_setup_8.3.0.0 and wait for the installation file to open.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*VeOcmlcbdEMTiGRCDSCMWQ.png" /></p>
+<ul>
+<li>To ensure no problems occur during the installation, make sure that real-time anti-virus programs are turned off before proceeding with the installation.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*OkvpiiTCF9_x1qra_opx2A.png" /></p>
+<ul>
+<li>Accept the Licence Agreement and then click the next button.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*UIxxje0PGXTDLEqmLF04Qg.png" /></p>
+<ul>
+<li>Choose a setup directory.</li>
+<li>Make sure that there are no spaces in the directory names that go to the installation folder.</li>
+<li>Click the next button.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*yvX_tWwv4AJGoIkc8oQM8Q.png" /></p>
+<ul>
+<li>Select a product family that matches your own device.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*JkhTwnfQ65h_F2I63kbPTA.png" /></p>
+<ul>
+<li>Wait until the installation is finished it may take about half an hour.</li>
+<li>After you see and click the finish button, you can click the CCS icon and run.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*dA-wEAoGwipiefrLMzfEcQ.png" />
+<img alt="" src="https://cdn-images-1.medium.com/max/800/1*x5Ao90N-XU57FB52sE_yrA.png" /></p>
+<ul>
+<li>Welcome to Code Composer Studio!</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*cZr_oKL4ucqIbZvO2DEU7A.png" /></p>
+<p>Now our development medium is ready for new projects. See you in next articles.</p>
+<p>Continue reading this series of articles;</p>
+<ul>
+<li><a href="https://erdo.dev/posts/2019-01-24_Introduction-to-ARM-Architecture">Introduction to ARM Architecture</a></li>
+<li><a href="https://erdo.dev/posts/2019-07-06_ARM-Architecture-Instruction-Set">ARM Architecture Instruction Set</a></li>
+</ul>
+<h2>References</h2>
+<ul>
+<li>[1] https://developer.arm.com/documentation/kan344/latest/Installation</li>
+<li>[2] https://software-dl.ti.com/ccs/esd/documents/users_guide_12.2.0/ccs_installation.html</li>
+</ul><hr />
+<footer role="contentinfo">
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><br>
+        The content for this site is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this site</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+</body>

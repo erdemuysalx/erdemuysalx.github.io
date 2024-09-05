@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>ARM Development Envrinment Installation: ARM Keil & Code Composer Studio</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #282A36;
+			font-family: sans-serif, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+			max-width: 650px;
+			line-height: 1.5rem;
+			margin: 0 auto;
+			padding: 1rem;
+			word-wrap: break-word;
+		}
+
+		blockquote {
+			border-left: 2px solid;
+			padding-left: 0.5rem;
+		}
+
+		code {
+			font-family: monospace;
+			background-color: #44475A;
+			color: #ffffff;
+			border-radius: .2rem;
+			padding: .1rem;
+		}
+
+		pre {
+			border: 2px solid;
+			padding: .5rem;
+			overflow: auto;
+		}
+
+		pre:has(code) {
+			background-color: #44475A;
+			color: #ffffff;
+			border: 2px solid #f9f9f9;
+			border-radius: .2rem;
+			padding: .5rem;
+		}
+
+		table {
+			text-align: left;
+			width: 100%;
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		a {
+			cursor: pointer;
+			color: #bd93f9;
+			text-decoration: none;
+			border-bottom: 1px solid #bd93f9;
+		}
+
+		a:hover {
+			background-color: #bd93f9;
+			color: #ffffff;
+			border-bottom: 1px solid #bd93f9
+		}
+
+		h2 {
+			background-color: #bd93f9;
+			color: #ffffff;
+			display: inline-block;
+			margin-bottom: 0.0rem;
+			margin-top: 0.0rem;
+			padding: 0.2rem 0.5rem;
+		}
+
+		#logo a {
+			border-bottom: none;
+		}
+
+		#menu a {
+			border-bottom: none;
+		}
+
+		.posts,
+		#menu ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		#menu li {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.posts li {
+			margin-bottom: 0.5rem;
+		}
+
+		.posts li span {
+			display: block;
+			font-size: 90%;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1 id="logo"><a href="/" aria-label="Go to the homepage">~erdo.dev</a></h1>
+		<nav id="menu">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/posts">Posts</a></li>
+				<li><a href="/projects">Projects</a></li>
+			</ul>
+		</nav>
+	</header>
+	<hr><h1>Introduction to AI, ML, and DL</h1>
+<p>2019-07-07</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*cWClRCB0elJuPLsWyrd2gw.jpeg" /></p>
+<p>Nowadays, lots of people are all thinking and worried like;</p>
+<blockquote>
+<p>“Will a robot take my job in the future? How is artificial intelligence likely to change my job in the near future? Where are AI technologies being used nowadays and where will they come later?”</p>
+</blockquote>
+<p>Before we judge this, let us examine a few simple concepts. But before we start, let me give you a hint, you might think these will be in the future, all are happening right now! As you’ve noticed, artificial intelligence has been a hot topic for several years now. It’s not hard to see if you have an internet connection, because news about it is now everywhere. Some people fear that these developments can be dangerous, and others seem to be greeted with excitement. But it is not a new thing. Since the beginning of the ’50s, some researchers studying this concept. The most important people who play a role in bringing artificial intelligence to the present are computer scientists such as John McCarty and Alan Turing. They started their research based on the “Can machines think?” problem. In 1950, Alan Turing brings up whether machines can think or not, in an article. With his famous Turing Test, it is possible to distinguish whether a machine is intelligent or not. If a person cannot identify a human or a machine behind an interaction, then this means that a machine is an intelligent machine and it can think. However, in 1956, the eponym of artificial intelligence was John McCarthy, who organized an academic conference on the subject. At the end of the conference, the common views of the participants were that the studies on artificial intelligence should be developed to an advanced level. Priority topics included natural language processing, image recognition and classification, and machine learning, which became popular today. However, the real development of these began to be seen lately due to the advancement of hardware technologies and excessive amounts of data.</p>
+<p>While initial research began at university laboratories, it is now becoming an attractive subject for the most prestigious companies. Such as Facebook or NVIDIA even if it is an electronic hardware company. In the last 10 years, artificial intelligence has emerged from a concept used in science fiction films, and books and has become a part of our lives. IBM’s Watson, who won the knowledge contest, and developments such as the Google AI that defeated the world champion in the GO intelligence game today have put artificial intelligence into the agenda of all of us. Today’s largest technology companies invest in artificial intelligence. We are now experiencing more artificial intelligence and even machine learning and deep learning in mobile phones, social media, search engines, and many other places. In the past, while artificial intelligence was the subject of science fiction films and books, today we can see AI impacts everywhere like self-driving cars, content recommendation, object detection, voice assistants, and medical disease diagnostics. It may be wrong to expect to see humanoid robots during this period because research and development are still being done on artificial intelligence, but I don’t think that is too far away.</p>
+<p>Artificial intelligence is a very extensive concept. To understand some things more easily, we can examine AI in three parts and these are:</p>
+<ul>
+<li>Artificial Intelligence</li>
+<li>Machine Learning</li>
+<li>Deep Learning</li>
+</ul>
+<p>Also, we will touch on some AI-related fields such as:</p>
+<ul>
+<li>Data Science</li>
+<li>Robotics</li>
+</ul>
+<p>Now let us understand these concepts one by one.</p>
+<h2>Artificial Intelligence</h2>
+<p>Among our concepts, artificial intelligence is the widest scope. We can think of artificial intelligence as a branch of computer science despite it is contradictory. The experts working on artificial intelligence, machine learning, and deep learning have not yet reached a consensus on these words. So far, the scientists involved in this subject have not made a clear definition of artificial intelligence. Because when artificial intelligence is called, many philosophical questions come with it, such as "What is intelligence? Can we call smart, a system that can do what people do? What if they only memorize that specific task?". Although no definite definition can be made, we can simply call artificial intelligence systems that people cannot do or do faster than people.</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*NpcGik_cjRIOESYKOkaefA.png" /></p>
+<h3>General vs Narrow AI</h3>
+<blockquote>
+<p>You may see the words "general" and "narrow" AI when reading the news. So what does that mean? Narrow AI is an AI that performs a single job. General AI or Artificial General Intelligence (AGI) refers to a machine capable of performing any intellectual task. All the AI techniques that we use today fall under narrow AI, while general AI stays in the science fiction domain. In reality, despite all the attempts, AI researchers have abandoned the idea of AGI due to the absence of advancement towards it in more than 50 years. Narrow AI, on the other hand, is progressing in leaps and boundaries according to developments on the side of deep learning.</p>
+</blockquote>
+<h3>Strong vs Weak AI</h3>
+<blockquote>
+<p>Strong AI would be a truly smart and self-conscious “mind.” Weak AI is what we truly have, namely systems that, despite being “merely” computers, display smart behaviors.</p>
+</blockquote>
+<h3>Autonomy</h3>
+<blockquote>
+<p>The capacity or ability to execute duties without constant user guidance in complex environments.</p>
+</blockquote>
+<h3>Adaptivity</h3>
+<blockquote>
+<p><em>The capacity or ability of learning from experience to enhance efficiency and productivity.</em></p>
+</blockquote>
+<h2>Machine Learning</h2>
+<p>Machine learning is the technique of using algorithms to parse data, learn from it, and then make a prediction or determination about something in the world. In doing so, it does not expect you to actively write various codes, but if you feed a machine learning algorithm with data it will start to output to you. The mainstay of machine learning is to create algorithms that can receive various data as input and use statistical analysis for estimation when updating the output as new data emerges.</p>
+<p>Machine learning algorithms are categorized into three groups supervised, unsupervised, and reinforcement learning. Supervised learning consists of classification and regression algorithms that use data that have labels. An example can be orthopedic patients' data that have labels normal and abnormal. Unsupervised learning: It uses data that is unlabeled and uncovers hidden patterns from unlabeled data. An example of this can be another version of orthopedic patients' data that does not have labels. You do not know which orthopedic patient is normal or abnormal. On the other side, the reinforcement learning approach differs from supervised learning and unsupervised learning approaches in machine learning. Reinforcement learning is a machine learning technique that learns what needs to be done for the purpose. In reinforcement learning, our agent reacts to the situations it encounters and receives a numerical reward in return. The agent tries to maximize this reward point it receives. The trial and error method that works in this way is the most distinctive feature of reinforcement learning.</p>
+<h2>Deep Learning</h2>
+<p>Deep Learning is a subfield of machine learning, which itself is a subfield of AI, which itself is a subfield of computer science. Much more data brings out into the open better artificial intelligence functions. Problems will become more complex, as they become more complicated, changeovers will occur from artificial intelligence to machine learning. As it becomes even more complex, transitions from machine learning to deep learning will begin. The more data you have, the better your system work better. While the machine learning process is in one layer, deep learning processes in many layers at the same time. These simultaneous operating layers require advanced processor units. Thanks to today's technologies, GPUs are perfect for this job. GPUs have many more cores than CPUs, which allows them to perform parallel processing. For example, we need to separate a picture of a banana and a picture of an orange. In machine learning, we were trying to introduce the experience that human beings have acquired so far to the machine through the parameters. We had to define many parameters like "If it is orange-colored and round it is probably orange. If it is yellow with the form of a bow, it is probably banana".</p>
+<p>However, deep learning can learn these differences by itself. Only by showing the orange and banana photos to the deep learning system, it can create its own rules, then to reveal the differences, it realizes color and shape are the main distinguishing features of the difference.</p>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/0*WzU-0-GkqBnA20Iq.png" /></p>
+<p><strong>Why Deep Learning:</strong> When the amount of data is increased, machine learning techniques are insufficient in terms of performance and deep learning gives a better performance like accuracy.</p>
+<p><strong>What is the Amount of Big?:</strong> It is hard to answer but intuitively 1 million samples are enough to say “big amount of data”.</p>
+<p><strong>Usage Fields of Deep Learning:</strong> Computer vision, natural language processing (NLP), recommendation systems, autonomous driving.</p>
+<p><strong>What is the Difference Between Deep Learning and Machine Learning?:</strong></p>
+<ul>
+<li>Machine learning covers deep learning.</li>
+<li>Features are given by machine learning manually however deep learning learns features directly from data, without the need for a supervisor.</li>
+</ul>
+<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*3YruJTnSP7d-udgPjnYXIw.png" /></p>
+<h2>AI-Related Fields</h2>
+<h3>Data Science and Engineering</h3>
+<p>Data science is a fresh term that comprises several sub-disciplines such as machine learning and statistics, a certain domain of computer science including algorithms, data storage, and web. Solutions in data science often require at least a pinch of AI.</p>
+<h3>Robotics</h3>
+<p>Robotics implies building and programming robots to function in complex, real-world situations. In a manner, robotics is AI’s ultimate challenge as it needs a mixture of almost all AI fields such as:</p>
+<ul>
+<li>Computer vision, image processing, speech recognition, and natural language processing for environmental understanding and perception,</li>
+<li>Deep reinforcement learning for robot navigation, motion planning, obstacle and collision avoidance,</li>
+<li>Information retrieval, and reasoning under uncertainty for processing instructions and predicting consequences of potential actions,</li>
+<li>Cognitive modeling and affective computing (systems that react to human gestures or mimic emotions) to interact and work with people.</li>
+</ul>
+<p>Machine learning best addresses many of the robotics-related AI issues, making machine learning a key AI branch for robotics.</p>
+<h2>References</h2>
+<ul>
+<li>[1] <a href="https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/">https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/</a></li>
+<li>[2] <a href="https://machinelearningmastery.com/what-is-deep-learning/">https://machinelearningmastery.com/what-is-deep-learning/</a></li>
+<li>[3] <a href="https://www.elementsofai.com/">https://www.elementsofai.com/</a></li>
+</ul><hr />
+<footer role="contentinfo">
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><br>
+        The content for this site is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this site</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+</body>

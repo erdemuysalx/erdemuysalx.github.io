@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>ARM Development Envrinment Installation: ARM Keil & Code Composer Studio</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #282A36;
+			font-family: sans-serif, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+			max-width: 650px;
+			line-height: 1.5rem;
+			margin: 0 auto;
+			padding: 1rem;
+			word-wrap: break-word;
+		}
+
+		blockquote {
+			border-left: 2px solid;
+			padding-left: 0.5rem;
+		}
+
+		code {
+			font-family: monospace;
+			background-color: #44475A;
+			color: #ffffff;
+			border-radius: .2rem;
+			padding: .1rem;
+		}
+
+		pre {
+			border: 2px solid;
+			padding: .5rem;
+			overflow: auto;
+		}
+
+		pre:has(code) {
+			background-color: #44475A;
+			color: #ffffff;
+			border: 2px solid #f9f9f9;
+			border-radius: .2rem;
+			padding: .5rem;
+		}
+
+		table {
+			text-align: left;
+			width: 100%;
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		a {
+			cursor: pointer;
+			color: #bd93f9;
+			text-decoration: none;
+			border-bottom: 1px solid #bd93f9;
+		}
+
+		a:hover {
+			background-color: #bd93f9;
+			color: #ffffff;
+			border-bottom: 1px solid #bd93f9
+		}
+
+		h2 {
+			background-color: #bd93f9;
+			color: #ffffff;
+			display: inline-block;
+			margin-bottom: 0.0rem;
+			margin-top: 0.0rem;
+			padding: 0.2rem 0.5rem;
+		}
+
+		#logo a {
+			border-bottom: none;
+		}
+
+		#menu a {
+			border-bottom: none;
+		}
+
+		.posts,
+		#menu ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		#menu li {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.posts li {
+			margin-bottom: 0.5rem;
+		}
+
+		.posts li span {
+			display: block;
+			font-size: 90%;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1 id="logo"><a href="/" aria-label="Go to the homepage">~erdo.dev</a></h1>
+		<nav id="menu">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/posts">Posts</a></li>
+				<li><a href="/projects">Projects</a></li>
+			</ul>
+		</nav>
+	</header>
+	<hr><h1>ROS File System</h1>
+<p>2023-03-02</p>
+<p>The Robot Operating System (ROS) is a flexible and powerful platform for developing software components for robotic systems. At its core, ROS operates through a network of nodes that communicate with each other, with these nodes organized into packages. These packages follow a specific file system convention recommended by Open Robotics, the organization behind ROS. A package serves as a root directory containing all the ROS-related files necessary for a particular project. In this article, we will explore the ROS file system and what you can expect to find within these packages. Understanding the ROS file system is crucial for the efficient development and organization of robotic software.</p>
+<h2>ROS Package</h2>
+<p>At the most fundamental level, nodes are the smallest executable building blocks of ROS. These nodes are designed to carry out specific tasks, such as control, navigation, and more, and they communicate with each other through messages. Nodes that serve similar purposes are typically grouped within a ROS package. A node generally consists of source code, messages, and services.</p>
+<h2>Manifest Files</h2>
+<p>ROS packages contain important files known as manifests, such as <code>package.xml</code> and <code>CMakeLists.txt</code>, which provide metadata and essential information about the ROS node.</p>
+<h3>package.xml</h3>
+<p>This file defines properties about the package such as the package name, version numbers, authors, maintainers, and dependencies on other catkin packages. Every single ROS node must contain one <code>package.xml</code> file.</p>
+<h3>CMakeLists.txt</h3>
+<p>This file serves as an input to the CMake build system, which is used for building software packages. Any CMake-compliant package contains one or more <code>CMakeLists.txt</code> files that describe how to compile the code and where to install it. The <code>CMakeLists.txt</code> file used in a Catkin project is essentially a standard CMakeLists file with a few additional constraints. Like package.xml, every ROS package must include a <code>CMakeLists.txt</code> file.</p>
+<h2>Source Code and Assets</h2>
+<p>Source code files that are part of ROS nodes, typically written in C++ or Python, should be placed in a folder named <code>src</code>, which is specifically designated for source code. Any script files that are not directly part of a node should be stored in a separate <code>scripts</code> folder.</p>
+<p>Descriptions of request and response data structures for services provided by each ROS process are stored in the <code>srv</code> folder. Similarly, custom messages used by nodes should be placed in the <code>msg</code> folder.</p>
+<p>Files that define how to start a ROS node are called launch files, and these are essential for initiating ROS nodes as specified. The ROS core uses these launch files to start the nodes.</p>
+<p>The Gazebo simulation tool requires certain asset files, such as <code>.world</code> files and .urdf files. The <code>.world</code> files define the 3D simulation environment, while the <code>.urdf</code> files specify the robot model. These files should be placed in the <code>worlds</code> folder.</p>
+<p>The overall folder structure typically looks as follows:</p>
+<pre><code>└── dummy_ros_pkg
+├── README.md
+├── CMakeLists.txt
+├── package.xml
+├── launch
+│   └── robot.launch
+├── worlds
+│   └── sim.world
+└── src
+    ├── foo_node.cpp
+    └── bar_node.py
+│
+└── scripts
+        ├── foo_scipt.py
+        └── bar_script.py
+│
+├── msg
+        └── dummy.msg
+</code></pre>
+<h2>References</h2>
+<ul>
+<li>[1] https://hub.packtpub.com/ros-architecture-and-concepts/#:~:text=Similar%20to%20an%20operating%20system,create%20a%20program%20within%20ROS.</li>
+</ul><hr />
+<footer role="contentinfo">
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><br>
+        The content for this site is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this site</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+</body>
