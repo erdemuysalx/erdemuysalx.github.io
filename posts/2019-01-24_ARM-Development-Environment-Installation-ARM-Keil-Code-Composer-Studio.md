@@ -1,4 +1,4 @@
-# ARM Development Envrinment Installation: ARM Keil & Code Composer Studio
+# ARM Development Environment Installation: ARM Keil & Code Composer Studio
 
 2019-01-24
 
@@ -97,12 +97,12 @@ Go here for downloading; [CCS](http://processors.wiki.ti.com/index.php/Download_
 
 Now our development medium is ready for new projects. See you in next articles.
 
-Continue reading this series of articles;
+Continue reading this series of articles:
 
 *   [Introduction to ARM Architecture](https://erdo.dev/posts/2019-01-24_Introduction-to-ARM-Architecture)
 *   [ARM Architecture Instruction Set](https://erdo.dev/posts/2019-07-06_ARM-Architecture-Instruction-Set)
 
 ## References
 
-*   [1] https://developer.arm.com/documentation/kan344/latest/Installation
-*   [2] https://software-dl.ti.com/ccs/esd/documents/users_guide_12.2.0/ccs_installation.html
+*   [1] [https://developer.arm.com/documentation/kan344/latest/Installation](https://developer.arm.com/documentation/kan344/latest/Installation)
+*   [2] [https://software-dl.ti.com/ccs/esd/documents/users_guide_12.2.0/ccs_installation.html](https://software-dl.ti.com/ccs/esd/documents/users_guide_12.2.0/ccs_installation.html)

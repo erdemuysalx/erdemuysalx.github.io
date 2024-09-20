@@ -53,4 +53,4 @@ The overall folder structure typically looks as follows:
             └── dummy.msg
 
 ## References
-*   [1] https://hub.packtpub.com/ros-architecture-and-concepts/#:~:text=Similar%20to%20an%20operating%20system,create%20a%20program%20within%20ROS.
+*   [1] [https://hub.packtpub.com/ros-architecture-and-concepts/#:~:text=Similar%20to%20an%20operating%20system,create%20a%20program%20within%20ROS.](https://hub.packtpub.com/ros-architecture-and-concepts/#:~:text=Similar%20to%20an%20operating%20system,create%20a%20program%20within%20ROS.)

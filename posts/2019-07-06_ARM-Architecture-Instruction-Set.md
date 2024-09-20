@@ -83,13 +83,13 @@ These instructions are fundamental arithmetic operations for all kinds of proces
 
 **Example:**
 
-Let’s write assembly instructions that perform the following operations.
+Given the following operations in the pseudocode:
 
     result = (a + b) - (c + d);
     a = b \* b;
     c = d / e;
 
--
+We can do the same operations with ARM instructions as follows:
 
     // result = (a + b) - (c + d);
     ADD   r0, r2, r3  // result = a + b;  (in C)

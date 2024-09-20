@@ -16,7 +16,7 @@ Containers are an abstraction at the app layer that packages code and dependenci
 
 Virtual machines (VMs) are an abstraction of physical hardware turning one server into many servers, the hypervisor allows multiple VMs to run on a single machine. Each VM includes a full copy of an operating system, the application, necessary binaries, and libraries - taking up tens of GBs. VMs can also be slow to boot.
 
-![](https://cdn-images-1.medium.com/max/800/0*VgBN-MJj_eXYjEtY.png)
+![Virtual Machine vs container. The figure is taken from https://k21academy.com/docker-kubernetes/docker-vs-virtual-machine/](https://cdn-images-1.medium.com/max/800/0*VgBN-MJj_eXYjEtY.png)
 
 ## Why Containers?
 
@@ -68,13 +68,11 @@ Restricting the resources used by the process.
 *   The app works on any machine regardless of which OS it uses, what type of hardware is equipped with etc.
 *   Docker is a standard for software deployment nowadays.
 
-![](https://cdn-images-1.medium.com/max/800/1*pebo5ZC35HDY6osrty5F8A.png)
+![Docker workflow. The figure is taken from https://www.researchgate.net/profile/Yahya-Al-Dhuraibi/publication/308050257/figure/fig1/AS:433709594746881@1480415833510/High-level-overview-of-Docker-architecture.png](https://cdn-images-1.medium.com/max/800/1*pebo5ZC35HDY6osrty5F8A.png)
 
 ## Install Docker
 
-Since there are a bunch of sources about this on the internet, I will not cover it in this article. I recommend you follow the official Docker page for the installation.
-
-[https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
+Since there are a bunch of sources about this on the internet, I will not cover it in this article. I recommend you follow the official [Docker page](https://docs.docker.com/get-docker/) for the installation.
 
 ## Docker Image
 

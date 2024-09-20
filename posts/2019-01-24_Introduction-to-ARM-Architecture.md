@@ -2,7 +2,7 @@
 
 2019-01-24
 
-![Figure is taken from Peter Howkings](https://cdn-images-1.medium.com/max/800/1*yVLT0ywWHW_PJ5VsiXNW9w.jpeg)
+![The figure is taken from https://en.m.wikipedia.org/wiki/File:Acorn-ARM-Evaluation-System.jpg](https://cdn-images-1.medium.com/max/800/1*yVLT0ywWHW_PJ5VsiXNW9w.jpeg)
 
 Anyone interested in embedded systems started to hear these two terms frequently. These are ARM and Embedded Linux. No longer, does everyone go towards work in these areas. Writing code in a free medium, when merging with the ease of getting rid of software licenses that cost millions, Embedded Linux started to gain popularity. As you all know, ARM architecture is very popular in the world and most projects use ARM-based processors with embedded systems.
 
@@ -43,7 +43,7 @@ In general, ARM has a small-endian system but can be set as big-endian if desire
 
 I think it’s enough for today. In the next article, we will touch on technical issues. In order to better understand, it is useful for the readers to reinforce their knowledge by repeating terms such as RISC, Registers, Little Endian and Big Endian. See you in our next articles.
 
-Continue reading this series of articles;
+Continue reading this series of articles:
 
 *   [ARM Development Environment Installation: ARM Keil & Code Composer Studio](https://erdo.dev/posts/2019-01-24_ARM-Development-Environment-Installation-ARM-Keil-Code-Composer-Studio)
 *   [ARM Architecture Instruction Set](https://erdo.dev/posts/2019-07-06_ARM-Architecture-Instruction-Set)

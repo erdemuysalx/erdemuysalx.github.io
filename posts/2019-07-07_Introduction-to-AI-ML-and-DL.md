@@ -2,9 +2,7 @@
 
 2019-07-07
 
-![](https://cdn-images-1.medium.com/max/800/1*cWClRCB0elJuPLsWyrd2gw.jpeg)
-
-Nowadays, lots of people are all thinking and worried like;
+Lots of people nowadays are all thinking and worried like;
 
 >“Will a robot take my job in the future? How is artificial intelligence likely to change my job in the near future? Where are AI technologies being used nowadays and where will they come later?”
 
@@ -29,7 +27,8 @@ Now let us understand these concepts one by one.
 
 Among our concepts, artificial intelligence is the widest scope. We can think of artificial intelligence as a branch of computer science despite it is contradictory. The experts working on artificial intelligence, machine learning, and deep learning have not yet reached a consensus on these words. So far, the scientists involved in this subject have not made a clear definition of artificial intelligence. Because when artificial intelligence is called, many philosophical questions come with it, such as "What is intelligence? Can we call smart, a system that can do what people do? What if they only memorize that specific task?". Although no definite definition can be made, we can simply call artificial intelligence systems that people cannot do or do faster than people.
 
-![](https://cdn-images-1.medium.com/max/800/1*NpcGik_cjRIOESYKOkaefA.png)
+
+![AI Hierarchy and Algorithms](https://cdn-images-1.medium.com/max/800/1*NpcGik_cjRIOESYKOkaefA.png)
 
 ### General vs Narrow AI
 
@@ -59,7 +58,7 @@ Deep Learning is a subfield of machine learning, which itself is a subfield of A
 
 However, deep learning can learn these differences by itself. Only by showing the orange and banana photos to the deep learning system, it can create its own rules, then to reveal the differences, it realizes color and shape are the main distinguishing features of the difference.
 
-![](https://cdn-images-1.medium.com/max/800/0*WzU-0-GkqBnA20Iq.png)
+![Performance of the model vs amount of data. The figure is taken from https://synthesis.ai/2020/03/23/the-data-problem-i-problem-and-plan/](https://cdn-images-1.medium.com/max/800/0*WzU-0-GkqBnA20Iq.png)
 
 **Why Deep Learning:** When the amount of data is increased, machine learning techniques are insufficient in terms of performance and deep learning gives a better performance like accuracy.
 
@@ -72,7 +71,7 @@ However, deep learning can learn these differences by itself. Only by showing th
 *   Machine learning covers deep learning.
 *   Features are given by machine learning manually however deep learning learns features directly from data, without the need for a supervisor.
 
-![](https://cdn-images-1.medium.com/max/800/1*3YruJTnSP7d-udgPjnYXIw.png)
+![Artificial neural network archtiecture](https://cdn-images-1.medium.com/max/800/1*3YruJTnSP7d-udgPjnYXIw.png)
 
 ## AI-Related Fields
 

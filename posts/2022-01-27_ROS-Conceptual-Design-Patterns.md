@@ -12,7 +12,7 @@ The content of this article will cover the following topics:
 *   ROS Concepts and Design Patterns
 *   ROS vs ROS 2
 
-![](https://cdn-images-1.medium.com/max/800/1*9qtOzaq_LiIJ33lqaw5X8g.jpeg)
+![NASA Opportunity Mars Exploration Rover. The figure is taken from https://www.jpl.nasa.gov/missions/mars-exploration-rover-opportunity-mer/](https://cdn-images-1.medium.com/max/800/1*9qtOzaq_LiIJ33lqaw5X8g.jpeg)
 
 ## Overview of ROS
 
@@ -64,7 +64,7 @@ The primary difference between ROS 2 and its predecessor, ROS, lies in the under
 
 Moreover, ROS 2 offers broader compatibility with operating systems, including Windows, macOS, and Real-Time Operating Systems (RTOS), expanding its usability across different platforms.
 
-![ROS vs ROS 2 Component Stack](https://cdn-images-1.medium.com/max/800/1*S2Aeb4GlN-Y7QKMcU1t5Bg.png)
+![ROS vs ROS 2 component stack](https://cdn-images-1.medium.com/max/800/1*S2Aeb4GlN-Y7QKMcU1t5Bg.png)
 
 ## ROS Computation Graph
 
@@ -77,7 +77,7 @@ Let's consider designing a robot that follows a particular object using its onbo
 
 Using ROS, we might construct this system as follows:
 
-![Example Computation Graph](https://cdn-images-1.medium.com/max/800/1*PnKf4vFYdGXq8h0VDFr-cQ.png)
+![Example computation graph](https://cdn-images-1.medium.com/max/800/1*PnKf4vFYdGXq8h0VDFr-cQ.png)
 
 Each subsystem in our robot design can be represented as a ROS node. Therefore, we will have four distinct nodes, each handling a specific executable function:
 
@@ -90,7 +90,7 @@ This concludes the discussion on ROS Conceptual Design Patterns, which is the fi
 
 ## References
 
-*   [1] http://wiki.ros.org/
-*   [2] https://index.ros.org/doc/ros2/
-*   [3] http://wiki.ros.org/gazebo
+*   [1] [http://wiki.ros.org/](http://wiki.ros.org/)
+*   [2] [https://index.ros.org/doc/ros2/](https://index.ros.org/doc/ros2/)
+*   [3] [http://wiki.ros.org/gazebo](http://wiki.ros.org/gazebo)
 *   [4] Quigley, Morgan, et al. “ROS: an open-source Robot Operating System.” ICRA workshop on open source software. Vol. 3. №3.2. 2009.

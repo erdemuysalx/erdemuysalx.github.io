@@ -145,11 +145,11 @@ Sample input series on batch created for trial purposes and expected values:
 
 Now it's time to design our model. We could use classical artificial neural networks (ANNs) in our model, but since the melodies we call music consist of a series of repeating notes, the classical ANNs using the feed-forward technique are somewhat dysfunctional for this problem. The notes that make up our music are not independent of each other, on the contrary, they are arranged one after the other in a way to adapt to the previous one. That is why in our model we will use RNN, which is a more advanced artificial neural network algorithm, that provides a very good solution to such sequence and repetition problems. In addition to classical neural networks, this algorithm can take the output of the previous node as input, while at the same time taking its output as an input for the nodes that are in parallel and after it. Below you can find a diagram where you can see the difference between feed-forward neural networks and RNNs.
 
-![](https://cdn-images-1.medium.com/max/800/0*xu3Kg282H1n2KKwe.png)
+![Feedforward NN vs Recurrent NN. The figure is taken from https://www.researchgate.net/figure/Feed-forward-and-recurrent-ANN-architecture_fig1_315111480)](https://cdn-images-1.medium.com/max/800/0*xu3Kg282H1n2KKwe.png)
 
 Although it offers a great solution for some problems, RNNs have some missing points. One of them is the ability to carry the information of array elements up to a certain past point to the next steps, in other words, their memory is very short and the algorithm starts to be difficult when it comes to using the previous elements. As a solution to this, gate cells have been developed aiming to solve exactly such problems. There are several types of door cells, for example, LSTM and GRU. We will use LSTM of these, and I avoid going into the details of this because it involves some complex mathematical operations and these are not our focus now. But for some intuition, I leave below a visualized LSTM gate cell.
 
-![](https://cdn-images-1.medium.com/max/800/0*k6TQJrYrBARnCjsr.gif)
+![Working principle of an LSTM cell. The figure is taken from https://becominghuman.ai/long-short-term-memory-part-1-3caca9889bbc)](https://cdn-images-1.medium.com/max/800/0*k6TQJrYrBARnCjsr.gif)
 
 You can see the summary of our model below.
 
@@ -183,7 +183,7 @@ Unique music pieces that emerged at the end of the training:
 
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/824756467&color=ff5500"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/erdem-uysal-578262330" title="R. Erdem Uysal" target="_blank" style="color: #cccccc; text-decoration: none;">R. Erdem Uysal</a> · <a href="https://soundcloud.com/erdem-uysal-578262330/irish-folk-by-lstm-based-rnn-2" title="Irısh Folk By LSTM Based RNN 2" target="_blank" style="color: #cccccc; text-decoration: none;">Irısh Folk By LSTM Based RNN 2</a></div>
 
-I did not want to share all the codes here because the article will be too long. But I shared the dataset and notebook on [GitHub](https://github.com/erdemuysalx/ComposerAI) for everyone to experience, you can find it below. See you in the next article.
+I did not want to share all the codes here because the article will be too long. However, I shared the dataset and the notebook on [GitHub](https://github.com/erdemuysalx/ComposerAI) for everyone to experiment. See you in the next article.
 
 ## References
 

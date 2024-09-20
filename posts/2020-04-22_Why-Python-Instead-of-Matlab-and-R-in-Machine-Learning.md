@@ -10,7 +10,11 @@ Python is becoming an increasingly central tool for data science. This was not a
 
 ## Alternatives to Python in Science
 
-![](https://cdn-images-1.medium.com/max/800/1*gCIna0Gx9tnxZxuNoTjCog.png)
+    | Python vs Matlab| Python vs R |
+    |  --------  |  -------  |
+    | January | $250 |
+    | February | $80 |
+    | March | $420 |
 
 > “Matlab is made for mathematicians, R for statisticians and Python for
 > programmers.”

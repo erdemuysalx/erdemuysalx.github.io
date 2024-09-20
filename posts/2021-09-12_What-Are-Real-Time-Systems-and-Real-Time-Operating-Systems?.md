@@ -2,7 +2,7 @@
 
 2021-09-12
 
-![](https://cdn-images-1.medium.com/max/800/1*wc2mgaPW9wianNSrXf951Q.jpeg)
+![The figure is taken from https://www.wallpaperbetter.com/de/hd-wallpaper-fuhzp](https://cdn-images-1.medium.com/max/800/1*wc2mgaPW9wianNSrXf951Q.jpeg)
 
 Hello, everyone. In this article, I will talk about what is a real-time, real-time system, and real-time operating system means. This article will be relatively different from the others and I will be explaining the meanings of a few terms. I think it is a big plus for us to be developing our technical thesaurus because; even if we do not use these terms directly, someday if we are involved in a project that uses some of these terms, and if we encounter a problem when the day comes, we can easily find out which term it originated from and find the relevant solution by researching this term. In summary, when we have a wide technical term treasury, it saves us time and speed in our projects and makes it easier for us to detect errors. Now let’s move on to our main topic.
 
@@ -36,7 +36,7 @@ If we continue with the conveyor belt example, the number of packages that will 
 
 Below is a visualization of the terms latency and throughput in the web server-client example.
 
-![](https://cdn-images-1.medium.com/max/800/0*R7LoaJr0M-l0jILV.jpeg)
+![Latency vs throughput. The figure is taken from https://www.comparitech.com/net-admin/latency-vs-throughput/](https://cdn-images-1.medium.com/max/800/0*R7LoaJr0M-l0jILV.jpeg)
 
 ### OS and RTOS
 
