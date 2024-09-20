@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="color-scheme" content="dark light">
-	<title>ARM Development Envrinment Installation: ARM Keil & Code Composer Studio</title>
+	<title>Linux Process Isolation and Docker Containers</title>
 	<style>
 		* {
 			box-sizing: border-box;
@@ -129,7 +129,7 @@
 <p>Containers are an abstraction at the app layer that packages code and dependencies together. Multiple containers can run on the same machine and share the OS kernel with other containers, each running as isolated processes in user space. In the end, the container is a process that runs on the OS kernel but with a little extra isolation.</p>
 <h1>Virtual Machines</h1>
 <p>Virtual machines (VMs) are an abstraction of physical hardware turning one server into many servers, the hypervisor allows multiple VMs to run on a single machine. Each VM includes a full copy of an operating system, the application, necessary binaries, and libraries - taking up tens of GBs. VMs can also be slow to boot.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/800/0*VgBN-MJj_eXYjEtY.png" /></p>
+<p><img alt="Virtual Machine vs container. The figure is taken from https://k21academy.com/docker-kubernetes/docker-vs-virtual-machine/" src="https://cdn-images-1.medium.com/max/800/0*VgBN-MJj_eXYjEtY.png" /></p>
 <h2>Why Containers?</h2>
 <ul>
 <li>Isolation: Containers are independent of the OS behind the container.</li>
@@ -171,10 +171,9 @@
 <li>The app works on any machine regardless of which OS it uses, what type of hardware is equipped with etc.</li>
 <li>Docker is a standard for software deployment nowadays.</li>
 </ul>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*pebo5ZC35HDY6osrty5F8A.png" /></p>
+<p><img alt="Docker workflow. The figure is taken from https://www.researchgate.net/profile/Yahya-Al-Dhuraibi/publication/308050257/figure/fig1/AS:433709594746881@1480415833510/High-level-overview-of-Docker-architecture.png" src="https://cdn-images-1.medium.com/max/800/1*pebo5ZC35HDY6osrty5F8A.png" /></p>
 <h2>Install Docker</h2>
-<p>Since there are a bunch of sources about this on the internet, I will not cover it in this article. I recommend you follow the official Docker page for the installation.</p>
-<p><a href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a></p>
+<p>Since there are a bunch of sources about this on the internet, I will not cover it in this article. I recommend you follow the official <a href="https://docs.docker.com/get-docker/">Docker page</a> for the installation.</p>
 <h2>Docker Image</h2>
 <p>Image is a template for creating an environment of your choice (DB, web app, or others). It is a snapshot of your application that has everything needed to run it.</p>
 <h2>Container</h2>

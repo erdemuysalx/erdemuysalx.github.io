@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="color-scheme" content="dark light">
-	<title>ARM Development Envrinment Installation: ARM Keil & Code Composer Studio</title>
+	<title>Linux Process Isolation and Docker Containers</title>
 	<style>
 		* {
 			box-sizing: border-box;
@@ -180,12 +180,12 @@ MUL Register0, Register1, Register2
 SDIV Register3, Register4, Register5
 </code></pre>
 <p><strong>Example:</strong></p>
-<p>Let’s write assembly instructions that perform the following operations.</p>
+<p>Given the following operations in the pseudocode:</p>
 <pre><code>result = (a + b) - (c + d);
 a = b \* b;
 c = d / e;
 </code></pre>
-<p>-</p>
+<p>We can do the same operations with ARM instructions as follows:</p>
 <pre><code>// result = (a + b) - (c + d);
 ADD   r0, r2, r3  // result = a + b;  (in C)
 ADD   r1, r4, r5  // temp= c + d;  (in C)

@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="color-scheme" content="dark light">
-	<title>ARM Development Envrinment Installation: ARM Keil & Code Composer Studio</title>
+	<title>Linux Process Isolation and Docker Containers</title>
 	<style>
 		* {
 			box-sizing: border-box;
@@ -130,7 +130,7 @@
 <li>ROS Concepts and Design Patterns</li>
 <li>ROS vs ROS 2</li>
 </ul>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*9qtOzaq_LiIJ33lqaw5X8g.jpeg" /></p>
+<p><img alt="NASA Opportunity Mars Exploration Rover. The figure is taken from https://www.jpl.nasa.gov/missions/mars-exploration-rover-opportunity-mer/" src="https://cdn-images-1.medium.com/max/800/1*9qtOzaq_LiIJ33lqaw5X8g.jpeg" /></p>
 <h2>Overview of ROS</h2>
 <p>What exactly is ROS? Despite what its name might suggest, ROS is not a traditional operating system. While it provides utility functions similar to those of a general-purpose operating system - such as hardware abstraction, low-level hardware control, interprocess message-passing, and package management - it is a middleware suite, not a true operating system.</p>
 <p>As a middleware suite, ROS offers developers a collection of software frameworks, libraries, and tools designed to facilitate the development of robust robotics applications that can integrate with diverse hardware and software clusters.ROS Concepts and Design Patterns</p>
@@ -159,7 +159,7 @@
 <p>In recent years, intensive efforts have been made within the Open Source Robotics Foundation's (OSRF) ROS community to enhance the durability and real-time sensitivity of ROS. These efforts are now bearing fruit, leading to the release of a new generation of ROS, known as ROS 2.</p>
 <p>The primary difference between ROS 2 and its predecessor, ROS, lies in the underlying communication architecture. In ROS 2, the publisher/subscriber communication model has shifted from the TCP/UDP multicast-based ROS master to the Data Distribution Service (DDS). DDS provides powerful features that significantly strengthen ROS 2's capabilities, making it more suitable for designing production-grade, real-time robotic systems.</p>
 <p>Moreover, ROS 2 offers broader compatibility with operating systems, including Windows, macOS, and Real-Time Operating Systems (RTOS), expanding its usability across different platforms.</p>
-<p><img alt="ROS vs ROS 2 Component Stack" src="https://cdn-images-1.medium.com/max/800/1*S2Aeb4GlN-Y7QKMcU1t5Bg.png" /></p>
+<p><img alt="ROS vs ROS 2 component stack" src="https://cdn-images-1.medium.com/max/800/1*S2Aeb4GlN-Y7QKMcU1t5Bg.png" /></p>
 <h2>ROS Computation Graph</h2>
 <p>Let's consider designing a robot that follows a particular object using its onboard sensors. The system we need to build involves several components:</p>
 <ul>
@@ -169,7 +169,7 @@
 <li>Motors: To execute these commands, the robot uses motors that drive the wheels and allow the robot to move toward the object.</li>
 </ul>
 <p>Using ROS, we might construct this system as follows:</p>
-<p><img alt="Example Computation Graph" src="https://cdn-images-1.medium.com/max/800/1*PnKf4vFYdGXq8h0VDFr-cQ.png" /></p>
+<p><img alt="Example computation graph" src="https://cdn-images-1.medium.com/max/800/1*PnKf4vFYdGXq8h0VDFr-cQ.png" /></p>
 <p>Each subsystem in our robot design can be represented as a ROS node. Therefore, we will have four distinct nodes, each handling a specific executable function:</p>
 <ul>
 <li>Camera Driver Node: This node is responsible for fetching raw images from the camera device and publishing these images to the relevant topic.</li>
@@ -180,9 +180,9 @@
 <p>This concludes the discussion on ROS Conceptual Design Patterns, which is the first article in our robotics series. In my next posts, I plan to delve into the ROS file system and the ROS navigation stack. Stay tuned!</p>
 <h2>References</h2>
 <ul>
-<li>[1] http://wiki.ros.org/</li>
-<li>[2] https://index.ros.org/doc/ros2/</li>
-<li>[3] http://wiki.ros.org/gazebo</li>
+<li>[1] <a href="http://wiki.ros.org/">http://wiki.ros.org/</a></li>
+<li>[2] <a href="https://index.ros.org/doc/ros2/">https://index.ros.org/doc/ros2/</a></li>
+<li>[3] <a href="http://wiki.ros.org/gazebo">http://wiki.ros.org/gazebo</a></li>
 <li>[4] Quigley, Morgan, et al. “ROS: an open-source Robot Operating System.” ICRA workshop on open source software. Vol. 3. №3.2. 2009.</li>
 </ul><hr />
 <footer role="contentinfo">

@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="color-scheme" content="dark light">
-	<title>ARM Development Envrinment Installation: ARM Keil & Code Composer Studio</title>
+	<title>Linux Process Isolation and Docker Containers</title>
 	<style>
 		* {
 			box-sizing: border-box;
@@ -122,7 +122,7 @@
 	</header>
 	<hr><h1>What Are Real Time Systems and Real Time Operating Systems?</h1>
 <p>2021-09-12</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*wc2mgaPW9wianNSrXf951Q.jpeg" /></p>
+<p><img alt="The figure is taken from https://www.wallpaperbetter.com/de/hd-wallpaper-fuhzp" src="https://cdn-images-1.medium.com/max/800/1*wc2mgaPW9wianNSrXf951Q.jpeg" /></p>
 <p>Hello, everyone. In this article, I will talk about what is a real-time, real-time system, and real-time operating system means. This article will be relatively different from the others and I will be explaining the meanings of a few terms. I think it is a big plus for us to be developing our technical thesaurus because; even if we do not use these terms directly, someday if we are involved in a project that uses some of these terms, and if we encounter a problem when the day comes, we can easily find out which term it originated from and find the relevant solution by researching this term. In summary, when we have a wide technical term treasury, it saves us time and speed in our projects and makes it easier for us to detect errors. Now let’s move on to our main topic.</p>
 <h2>What is a Real-Time System?</h2>
 <p>In fact, we can summarize it as follows; the systems that produce an output in a certain time to the inputs from outside are called real-time systems. For example; unmanned aerial vehicles react in a very short time to the commands we give from the radio controller. Therefore, unmanned aerial vehicles are real-time systems, in the same way, the airbags in our cars are real systems since they produce instantaneous responses to the given input. Examples of non-real-time systems would be computers or washing machines. Because in these systems, there is no concern about producing instant output to the given input. It is an important distinction in terms of design that the system we will design is real-time or not real-time because there are differences between designing real-time systems and designing non-real-time systems.</p>
@@ -144,7 +144,7 @@
 <p><strong>Throughput:</strong> The number of packets sent and received per unit time.</p>
 <p>If we continue with the conveyor belt example, the number of packages that will leave the conveyor belt at one time, let’s say one minute, after the first package reaches the destination, gives the transfer rate. Likewise, the total amount of packets that a web server sends to the client in one minute is also called the transfer rate.</p>
 <p>Below is a visualization of the terms latency and throughput in the web server-client example.</p>
-<p><img alt="" src="https://cdn-images-1.medium.com/max/800/0*R7LoaJr0M-l0jILV.jpeg" /></p>
+<p><img alt="Latency vs throughput. The figure is taken from https://www.comparitech.com/net-admin/latency-vs-throughput/" src="https://cdn-images-1.medium.com/max/800/0*R7LoaJr0M-l0jILV.jpeg" /></p>
 <h3>OS and RTOS</h3>
 <h3>What is an Operating System (OS)?</h3>
 <p>An operating system is a computer program that supports the basic functions of the computer and serves other programs and applications running on the computer. Applications provide the functionality that the computer user wants or needs, while the services provided by the operating system make the execution of applications faster, simpler, and easier. For example, if you are reading a web page, you are using a web browser, which can be thought of as an application program that provides the functionality you are interested in, and that will run in an operating system-provided environment.</p>
