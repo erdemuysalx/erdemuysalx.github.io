@@ -43,4 +43,4 @@ Python is becoming an increasingly central tool for data science. This was not a
 
 ## References
 
-*   [1] TUT SGN-41007 Pattern Recognition and Machine Learning Course
+* [1] [TUT SGN-41007 Pattern Recognition and Machine Learning Course](https://sgn-41007-2018.blogspot.com/)

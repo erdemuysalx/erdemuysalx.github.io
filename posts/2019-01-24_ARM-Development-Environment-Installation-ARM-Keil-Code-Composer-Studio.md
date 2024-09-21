@@ -104,5 +104,5 @@ Continue reading this series of articles:
 
 ## References
 
-*   [1] [https://developer.arm.com/documentation/kan344/latest/Installation](https://developer.arm.com/documentation/kan344/latest/Installation)
-*   [2] [https://software-dl.ti.com/ccs/esd/documents/users_guide_12.2.0/ccs_installation.html](https://software-dl.ti.com/ccs/esd/documents/users_guide_12.2.0/ccs_installation.html)
+* [1] [https://developer.arm.com/documentation/kan344/latest/Installation](https://developer.arm.com/documentation/kan344/latest/Installation)
+* [2] [https://software-dl.ti.com/ccs/esd/documents/users_guide_12.2.0/ccs_installation.html](https://software-dl.ti.com/ccs/esd/documents/users_guide_12.2.0/ccs_installation.html)

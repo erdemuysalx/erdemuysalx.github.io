@@ -92,6 +92,6 @@ Machine learning best addresses many of the robotics-related AI issues, making m
 
 ## References
 
-*   [1] [https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/](https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/)
-*   [2] [https://machinelearningmastery.com/what-is-deep-learning/](https://machinelearningmastery.com/what-is-deep-learning/)
-*   [3] [https://www.elementsofai.com/](https://www.elementsofai.com/)
+* [1] [https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/](https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/)
+* [2] [https://machinelearningmastery.com/what-is-deep-learning/](https://machinelearningmastery.com/what-is-deep-learning/)
+* [3] [https://www.elementsofai.com/](https://www.elementsofai.com/)

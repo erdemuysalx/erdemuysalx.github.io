@@ -147,6 +147,6 @@ Continue reading this series of articles:
 
 ## References
 
-*   [1]   [https://cseweb.ucsd.edu/classes/fa15/cse30/lectures/lec7\_detailed.pdf](https://cseweb.ucsd.edu/classes/fa15/cse30/lectures/lec7_detailed.pdf)
-*   [2]   [http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.kui0100a/armasm\_cihcjfjg.htm](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.kui0100a/armasm_cihcjfjg.htm)
-*   [3]   [http://www.davespace.co.uk/arm/introduction-to-arm/barrel-shifter.html](http://www.davespace.co.uk/arm/introduction-to-arm/barrel-shifter.html)
+* [1] [https://cseweb.ucsd.edu/classes/fa15/cse30/lectures/lec7\_detailed.pdf](https://cseweb.ucsd.edu/classes/fa15/cse30/lectures/lec7_detailed.pdf)
+* [2] [http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.kui0100a/armasm\_cihcjfjg.htm](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.kui0100a/armasm_cihcjfjg.htm)
+* [3] [http://www.davespace.co.uk/arm/introduction-to-arm/barrel-shifter.html](http://www.davespace.co.uk/arm/introduction-to-arm/barrel-shifter.html)

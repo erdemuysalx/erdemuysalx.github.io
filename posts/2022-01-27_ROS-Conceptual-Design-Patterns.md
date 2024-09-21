@@ -90,7 +90,7 @@ This concludes the discussion on ROS Conceptual Design Patterns, which is the fi
 
 ## References
 
-*   [1] [http://wiki.ros.org/](http://wiki.ros.org/)
-*   [2] [https://index.ros.org/doc/ros2/](https://index.ros.org/doc/ros2/)
-*   [3] [http://wiki.ros.org/gazebo](http://wiki.ros.org/gazebo)
-*   [4] Quigley, Morgan, et al. “ROS: an open-source Robot Operating System.” ICRA workshop on open source software. Vol. 3. №3.2. 2009.
+* [1] [http://wiki.ros.org/](http://wiki.ros.org/)
+* [2] [https://index.ros.org/doc/ros2/](https://index.ros.org/doc/ros2/)
+* [3] [http://wiki.ros.org/gazebo](http://wiki.ros.org/gazebo)
+* [4] Quigley, Morgan, et al. “ROS: an open-source Robot Operating System.” ICRA workshop on open source software. Vol. 3. №3.2. 2009.

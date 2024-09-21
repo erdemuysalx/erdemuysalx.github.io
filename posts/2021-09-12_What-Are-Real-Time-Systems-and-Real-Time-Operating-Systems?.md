@@ -72,6 +72,6 @@ Task Scheduler keeps status logs of each task and selects the task that is ready
 
 ## References
 
-*   [1] Fan, Xiaocong. Real-Time Embedded Systems: Design Principles and
+* [1] Fan, Xiaocong. Real-Time Embedded Systems: Design Principles and
 Engineering Practices. Newnes, 2015.
-*   [2] Jane Liu. Real-Time Systems. Integre Technical Publishing Co., Inc., 2000.
+* [2] Jane Liu. Real-Time Systems. Integre Technical Publishing Co., Inc., 2000.

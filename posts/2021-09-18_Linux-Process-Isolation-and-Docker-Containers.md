@@ -182,12 +182,12 @@ Thank you for reading this article, and I will see you in the next one!
 
 ## References
 
-*   [1] [https://man7.org/linux/man-pages/man2/chroot.2.html](https://man7.org/linux/man-pages/man2/chroot.2.html)
-*   [2] [https://www.ibm.com/docs/en/zos/2.2.0?topic=descriptions-chroot-change-root-directory-execution-command](https://www.ibm.com/docs/en/zos/2.2.0?topic=descriptions-chroot-change-root-directory-execution-command)
-*   [3] [https://man7.org/linux/man-pages/man1/unshare.1.html](https://man7.org/linux/man-pages/man1/unshare.1.html)
-*   [4] [https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/](https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/)
-*   [5] [https://man7.org/linux/man-pages/man7/cgroups.7.html](https://man7.org/linux/man-pages/man7/cgroups.7.html)
-*   [6] [https://www.ibm.com/docs/en/spectrum-symphony/7.3.0?topic=limits-control-groups-cgroups-limiting-resource-usage-linux](https://www.ibm.com/docs/en/spectrum-symphony/7.3.0?topic=limits-control-groups-cgroups-limiting-resource-usage-linux)
-*   [7] [https://docs.docker.com/get-started/overview/](https://docs.docker.com/get-started/overview/)
-*   [8] [https://docs.docker.com/engine/reference/builder/](https://docs.docker.com/engine/reference/builder/)
-*   [9] [https://docs.docker.com/language/python/build-images/](https://docs.docker.com/language/python/build-images/)
+* [1] [https://man7.org/linux/man-pages/man2/chroot.2.html](https://man7.org/linux/man-pages/man2/chroot.2.html)
+* [2] [https://www.ibm.com/docs/en/zos/2.2.0?topic=descriptions-chroot-change-root-directory-execution-command](https://www.ibm.com/docs/en/zos/2.2.0?topic=descriptions-chroot-change-root-directory-execution-command)
+* [3] [https://man7.org/linux/man-pages/man1/unshare.1.html](https://man7.org/linux/man-pages/man1/unshare.1.html)
+* [4] [https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/](https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/)
+* [5] [https://man7.org/linux/man-pages/man7/cgroups.7.html](https://man7.org/linux/man-pages/man7/cgroups.7.html)
+* [6] [https://www.ibm.com/docs/en/spectrum-symphony/7.3.0?topic=limits-control-groups-cgroups-limiting-resource-usage-linux](https://www.ibm.com/docs/en/spectrum-symphony/7.3.0?topic=limits-control-groups-cgroups-limiting-resource-usage-linux)
+* [7] [https://docs.docker.com/get-started/overview/](https://docs.docker.com/get-started/overview/)
+* [8] [https://docs.docker.com/engine/reference/builder/](https://docs.docker.com/engine/reference/builder/)
+* [9] [https://docs.docker.com/language/python/build-images/](https://docs.docker.com/language/python/build-images/)

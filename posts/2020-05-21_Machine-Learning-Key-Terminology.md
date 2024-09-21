@@ -36,5 +36,5 @@ Machine Learning domain is very fascinating and it is becoming very powerful and
 
 ## References
 
-*   [1] [https://machinelearningmastery.com/classification-versus-regression-in-machine-learning/](https://machinelearningmastery.com/classification-versus-regression-in-machine-learning/)
-*   [2] [https://developers.google.com/machine-learning/crash-course](https://developers.google.com/machine-learning/crash-course)
+* [1] [https://machinelearningmastery.com/classification-versus-regression-in-machine-learning/](https://machinelearningmastery.com/classification-versus-regression-in-machine-learning/)
+* [2] [https://developers.google.com/machine-learning/crash-course](https://developers.google.com/machine-learning/crash-course)

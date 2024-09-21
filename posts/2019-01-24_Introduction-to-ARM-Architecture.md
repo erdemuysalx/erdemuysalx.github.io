@@ -50,7 +50,7 @@ Continue reading this series of articles:
 
 ## References
 
-*   [1]   [https://en.wikipedia.org/wiki/ARM\_architecture](https://en.wikipedia.org/wiki/ARM_architecture)
-*   [2]   [https://en.wikipedia.org/wiki/Arm\_Holdings](https://en.wikipedia.org/wiki/Arm_Holdings)
-*   [3]   [http://www.keil.com/support/man/docs/armasm/armasm\_dom1359731128950.htm](http://www.keil.com/support/man/docs/armasm/armasm_dom1359731128950.htm)
-*   [4]   [http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0210c/Cihhcjia.html](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0210c/Cihhcjia.html)
+* [1] [https://en.wikipedia.org/wiki/ARM\_architecture](https://en.wikipedia.org/wiki/ARM_architecture)
+* [2] [https://en.wikipedia.org/wiki/Arm\_Holdings](https://en.wikipedia.org/wiki/Arm_Holdings)
+* [3] [http://www.keil.com/support/man/docs/armasm/armasm\_dom1359731128950.htm](http://www.keil.com/support/man/docs/armasm/armasm_dom1359731128950.htm)
+* [4] [http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0210c/Cihhcjia.html](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0210c/Cihhcjia.html)
