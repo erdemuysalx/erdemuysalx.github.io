@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>Linux Process Isolation and Docker Containers</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #282A36;
+			font-family: sans-serif, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+			max-width: 650px;
+			line-height: 1.5rem;
+			margin: 0 auto;
+			padding: 1rem;
+			word-wrap: break-word;
+		}
+
+		blockquote {
+			border-left: 2px solid;
+			padding-left: 0.5rem;
+		}
+
+		code {
+			font-family: monospace;
+			background-color: #44475A;
+			color: #ffffff;
+			border-radius: .2rem;
+			padding: .1rem;
+		}
+
+		pre {
+			border: 2px solid;
+			padding: .5rem;
+			overflow: auto;
+		}
+
+		pre:has(code) {
+			background-color: #44475A;
+			color: #ffffff;
+			border: 2px solid #f9f9f9;
+			border-radius: .2rem;
+			padding: .5rem;
+		}
+
+		table {
+			text-align: left;
+			width: 100%;
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		a {
+			cursor: pointer;
+			color: #bd93f9;
+			text-decoration: none;
+			border-bottom: 1px solid #bd93f9;
+		}
+
+		a:hover {
+			background-color: #bd93f9;
+			color: #ffffff;
+			border-bottom: 1px solid #bd93f9
+		}
+
+		h2 {
+			background-color: #bd93f9;
+			color: #ffffff;
+			display: inline-block;
+			margin-bottom: 0.0rem;
+			margin-top: 0.0rem;
+			padding: 0.2rem 0.5rem;
+		}
+
+		#logo a {
+			border-bottom: none;
+		}
+
+		#menu a {
+			border-bottom: none;
+		}
+
+		.posts,
+		#menu ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		#menu li {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		.posts li {
+			margin-bottom: 0.5rem;
+		}
+
+		.posts li span {
+			display: block;
+			font-size: 90%;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1 id="logo"><a href="/" aria-label="Go to the homepage">~erdo.dev</a></h1>
+		<nav id="menu">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/posts">Posts</a></li>
+				<li><a href="/projects">Projects</a></li>
+			</ul>
+		</nav>
+	</header>
+	<hr><h1>SLAM and Navigation in ROS</h1>
+<p>2023-03-07</p>
+<p>Can you imagine a robot that cannot locate itself, map its surroundings, or navigate? Such a robot would hardly be useful. These essential capabilities make robots indispensable in many applications. But does every robotics software developer need to be an expert in SLAM (Simultaneous Localization and Mapping) and navigation, which are distinct research areas, to implement these features? Fortunately, the answer is no, thanks to ROS.</p>
+<p>In this article, we will explore how to tackle complex tasks such as SLAM and navigation using ROS. Even if these topics are not directly applicable to your specific robot, I believe this guide will serve as a valuable starting point and help you build a solid technical foundation.</p>
+<h2>SLAM and Navigation Using ROS</h2>
+<p>While SLAM and navigation are complex and challenging fields, ROS simplifies them conceptually and provides algorithms that can be integrated into your robotics application with minimal adjustments. Some commonly used algorithms and nodes include:</p>
+<ul>
+<li><a href="http://wiki.ros.org/amcl">amcl</a></li>
+<li><a href="http://wiki.ros.org/gmapping">gmapping</a></li>
+<li><a href="http://wiki.ros.org/move_base">move_base</a></li>
+</ul>
+<p>Behind the scenes, ROS processes data from odometry and sensors, such as LiDAR or cameras, converting this information into velocity commands that are sent to the robot's controller. However, implementing ROS's navigation algorithms on an arbitrary robot can be more involved. Before starting navigation, the robot must be running ROS, have a properly configured TF transform tree, and publish odometry and sensor data using the appropriate ROS message types.</p>
+<h2>Essential Requirements for Effective Robot Navigation</h2>
+<p>Before a robot can navigate effectively, several prerequisites must be met to ensure smooth operation and accurate performance. These include:</p>
+<ul>
+<li><strong>URDF (Universal Robot Description File)</strong>: The robot's URDF must be error-free, as it provides a detailed description of the robot's physical structure, which is essential for proper navigation.</li>
+<li><strong>Localization:</strong> The robot needs to know its exact position relative to its environment. This can be achieved using various sensors, such as LiDAR or cameras, to accurately localize the robot.</li>
+<li><strong>Obstacle Avoidance:</strong> During navigation, unexpected obstacles may appear. The robot should be capable of detecting and dynamically avoiding these obstacles in real-time.</li>
+<li><strong>Path Planning:</strong> To move from point A to point B, the robot must be able to calculate an efficient and collision-free route using path planning algorithms.</li>
+</ul>
+<h2>Configuring the Robot for the ROS Navigation Stack</h2>
+<p>The ROS Navigation Stack comprises several essential components that work together to enable a robot to move autonomously. Each component plays a critical role in ensuring accurate localization, path planning, and motion control. Below is an explanation of the key components in the navigation stack:</p>
+<ul>
+<li><strong>Sensor Transforms (tf):</strong> The data collected from various sensors must be referenced to a common frame, typically base_link, to accurately compare information from different sensors. The robot should publish the relationship between its main coordinate frame and its sensors' frames using ROS tf.</li>
+<li><strong>Sensor Sources:</strong> Sensors serve two main purposes in navigation: localizing the robot on the map (e.g., using a laser scanner) and detecting obstacles in its path (using lasers, sonars, or point clouds).</li>
+<li><strong>Odometry Source:</strong> Odometry data provides the robot's position relative to its starting point. The main sources of odometry are wheel encoders, IMUs, and 2D/3D cameras (for visual odometry). The odometry value must be published to the navigation stack using the nav_msgs/Odometry message type, which can contain both the robot's position and velocity.</li>
+<li><strong>Base Controller:</strong> The base controller's primary function is to take the output of the navigation stack (a geometry_msgs/Twist message) and convert it into motor commands, setting the robot's velocity to execute the desired motion.</li>
+</ul>
+<p><img alt="ROS navigation stack" src="https://wiki.ros.org/navigation/Tutorials/RobotSetup?action=AttachFile&amp;do=get&amp;target=overview_tf_small.png" /></p>
+<p>If you haven't done so already, create a new package named robot_navigation inside the workspace ros_ws:</p>
+<pre><code>cd .../ros_ws/src
+catkin_create_pkg robot_navigation std_msgs roscpp
+</code></pre>
+<h3>Implementing SLAM Using the gmapping ROS Node</h3>
+<p>ROS provides powerful tools to assist in the SLAM process, such as acml and gmapping, for enabling robots to understand and navigate their environments which uses SLAM techniques to build a map from sensor data. Below are the steps required to configure and run the gmappingnode for SLAM purposes.</p>
+<p><strong>Step 1.</strong> Create a new file named <code>gmapping.launch</code> in the package <code>robot_navigation</code>, located in the folder <code>.../robot_navigation/launch</code>. Paste the code below into gmapping.launch:</p>
+<pre><code>&lt;launch&gt;
+
+&lt;arg name="use_gazebo" default="false" /&gt;
+
+&lt;!-- Gazebo --&gt;
+&lt;group if="$(arg use_gazebo)"&gt;
+    &lt;param name="use_sim_time" value="true" /&gt;
+    &lt;include file="$(find robot_bringup)/launch/robot.launch"&gt;
+        &lt;arg name="world" value="maze" /&gt;
+    &lt;/include&gt;
+&lt;/group&gt;
+
+&lt;!-- SLAM --&gt;
+&lt;node pkg="gmapping" type="slam_gmapping" name="gmapping"&gt;
+    &lt;param name="base_frame"            value="base_link"/&gt;
+    &lt;param name="odom_frame"            value="odom" /&gt;
+    &lt;param name="map_update_interval"   value="3.0"/&gt;
+    &lt;param name="maxUrange"             value="15.0"/&gt;
+&lt;/node&gt;
+
+&lt;!-- Teleoperation - keyboard control --&gt;
+&lt;node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/&gt;
+
+&lt;/launch&gt;
+</code></pre>
+<p><strong>Step 2.</strong> Configure parameters such as <code>base_frame, odom_frame, map_update_interval, maxUrange</code> manually in the launch file according to your hardware. Alternatively, you can write parameters into the gmapping.yaml file and link it to the launch file:</p>
+<pre><code>&lt;rosparam file="$(find gmapping_package)/launch/gmapping.yaml" command="load"/&gt;
+</code></pre>
+<p><strong>Step 3.</strong> Launch the gmapping node:</p>
+<pre><code>roslaunch robot_navigation gmapping.launch
+</code></pre>
+<p><strong>Step 4.</strong> Track the map in RViz: </p>
+<pre><code>rosrun rviz rviz
+</code></pre>
+<p><strong>Step 5.</strong> Using the teleop_twist_keyboard node and your PC's keyboard, drive the mobile robot around to build a complete map of the environment in which it operates.</p>
+<p><strong>Step 6.</strong> Once the mapping is complete, save the map:</p>
+<pre><code>rosrun map_server map_saver -f map
+</code></pre>
+<p>This will generate two files:</p>
+<ul>
+<li>A PGM image file of the map</li>
+<li>A YAML file containing metadata about the map</li>
+</ul>
+<p><strong>Step 7.</strong> To make the map available to other nodes, serve the map data by running the following ROS service:</p>
+<pre><code>rosrun map_server map_server map.yaml
+</code></pre>
+<p>This will create two topics: <code>/map</code> and <code>/map_metadata</code>, which other nodes can subscribe to.</p>
+<h3>Implementing Navigation Using move_base ROS Node</h3>
+<p>In ROS, path planning is performed using the occupancy map, previously generated by the gmapping node. The next step is to create a cost map, which allows for the calculation of an optimal trajectory. Once the best path is identified, appropriate control mechanisms can be applied to follow the path efficiently. Both path planning and velocity control are managed by the move_base node. This node utilizes two cost maps-one for the global planner and another for the local planner (from the <a href="https://wiki.ros.org/costmap_2d">costmap_2d</a> package). These components need to be properly configured to enable the move_base node to function effectively. Below are the steps to configure and run the move_base node for navigation.</p>
+<p><strong>Step 1.</strong> The first component of the move_base node is the cost map. The cost map is a grid where each cell is assigned a value representing the "cost" based on its distance from obstacles. The closer the obstacle, the higher the cost. Two types of costs are used:</p>
+<ul>
+<li>Global Cost Map: Helps the global planner calculate the shortest path between two points using previously gathered sensor data.</li>
+<li>Local Cost Map: Assists the local planner in dynamically controlling smaller sections of the path.</li>
+</ul>
+<p>To configure the costmap parameters, create and edit the following files.</p>
+<p><code>/robot_navigation/config/costmap_common.yaml</code> for common cost map parameters:</p>
+<pre><code>global_frame: map
+robot_base_frame: base_link
+footprint: [[0.14, 0.14], [0.14, -0.14], [-0.14, -0.14], [-0.14, 0.14]]
+rolling_window: true
+
+inflation_radius: 0.5
+cost_scaling_factor: 4.0
+
+track_unknown_space: true
+observation_sources: scan
+scan: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+</code></pre>
+<p><code>/robot_navigation/config/costmap_global.yaml</code> for global cost map parameters:</p>
+<pre><code>global_costmap:
+    update_frequency: 2.0
+    publish_frequency: 1.0
+
+    obstacle_range: 5.0
+    raytrace_range: 5.0
+    static_map: true
+
+    width: 15.0
+    height: 15.0
+</code></pre>
+<p><code>/robot_navigation/config/costmap_local.yaml</code> for local cost map parameters:</p>
+<pre><code>local_costmap:
+    update_frequency: 5.0
+    publish_frequency: 2.0
+
+    obstacle_range: 2.5
+    raytrace_range: 2.5
+    static_map: false
+
+    width: 2.5
+    height: 2.5
+    resolution: 0.02
+</code></pre>
+<p><strong>Step 2.</strong> The second component of the move_base node is the planner. The planner's role is to reach the target position while avoiding obstacles within a user-defined tolerance. It uses the costmap to generate a path through the cells with the lowest cost. The move_base node utilizes two planners:</p>
+<ul>
+<li>Global Planner: Finds the optimal path using the global costmap.</li>
+<li>Local Planner: Selects controls to guide the robot along the path by adjusting velocities.</li>
+</ul>
+<p>Configure the planner parameters in the following files:</p>
+<p><code>/robot_navigation/config/planner_global.yaml</code> for global planner parameters:</p>
+<pre><code>base_global_planner : navfn/NavfnROS
+</code></pre>
+<p><code>/robot_navigation/config/planner_local.yaml</code> for local planner parameters:</p>
+<pre><code>base_local_planner: base_local_planner/TrajectoryPlannerROS
+
+TrajectoryPlannerROS:
+    min_vel_x: 0.1
+    max_vel_x: 0.3
+    min_vel_theta: -0.7
+    max_vel_theta: 0.7
+    min_in_place_vel_theta: 0.4
+    escape_vel: -0.1
+
+    acc_lim_theta: 1.0
+    acc_lim_x: 1.0
+
+    holonomic_robot: false
+
+    xy_goal_tolerance: 0.1
+    yaw_goal_tolerance: 0.2
+
+    meter_scoring: true
+    path_distance_bias: 20
+    goal_distance_bias: 15
+    occdist_scale:  0.01
+
+    sim_time: 2.0
+</code></pre>
+<p><strong>Step 3.</strong> Now that the cost maps and planners are configured, create a new file named <code>move_base.launch</code> in the <code>robot_navigation</code> package, located in the folder <code>.../robot_navigation/launch</code>. Insert the following code into <code>move_base.launch</code>:</p>
+<pre><code>&lt;launch&gt;
+
+&lt;arg name="use_gazebo" default="false" /&gt;
+&lt;arg name="map_name" default="map.yaml"/&gt;
+
+&lt;!-- Localization --&gt;
+&lt;include file="$(find robot_navigation)/launch/gmapping.launch"&gt;
+    &lt;arg name="use_gazebo" value="$(arg use_gazebo)" /&gt;
+    &lt;arg name="map_name" default="$(arg map_name)"/&gt;
+&lt;/include&gt;
+
+&lt;!-- Path planning --&gt;
+&lt;node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen"&gt;
+    &lt;rosparam file="$(find robot_navigation)/config/move_base.yaml" command="load" /&gt;
+    &lt;rosparam file="$(find robot_navigation)/config/costmap_common.yaml" command="load" ns="global_costmap" /&gt;
+    &lt;rosparam file="$(find robot_navigation)/config/costmap_common.yaml" command="load" ns="local_costmap" /&gt;
+    &lt;rosparam file="$(find robot_navigation)/config/costmap_global.yaml" command="load" /&gt;
+    &lt;rosparam file="$(find robot_navigation)/config/costmap_local.yaml" command="load" /&gt;
+    &lt;rosparam file="$(find robot_navigation)/config/planner_global.yaml" command="load" /&gt;
+    &lt;rosparam file="$(find robot_navigation)/config/planner_local.yaml" command="load" /&gt;
+&lt;/node&gt;
+
+&lt;node pkg="rviz" type="rviz" name="rviz" args="-d $(find robot_navigation)/rviz/move_base.rviz"/&gt;
+
+&lt;/launch&gt;
+</code></pre>
+<p><strong>Step 4.</strong> Launch the move_base node:</p>
+<pre><code>roslaunch robot_navigation move_base.launch
+</code></pre>
+<p>In this article, we covered the essential steps to set up SLAM and navigation in ROS using the gmappingand the move_base nodes. By leveraging ROS's navigation stack, you can create autonomous robots capable of localization, mapping, and navigation in dynamic environments. While additional tuning might be required for specific applications, this guide provides an introductory foundation to get you started on your ROS navigation journey.</p>
+<h2>References</h2>
+<ul>
+<li>[1] <a href="https://wiki.ros.org/navigation/Tutorials/RobotSetup">https://wiki.ros.org/navigation/Tutorials/RobotSetup</a></li>
+<li>[2] <a href="https://wiki.ros.org/map_server">https://wiki.ros.org/map_server</a></li>
+<li>[3] <a href="http://wiki.ros.org/costmap_2d">http://wiki.ros.org/costmap_2d</a></li>
+<li>[4] <a href="https://husarion.com/tutorials/ros-tutorials/8-slam/">https://husarion.com/tutorials/ros-tutorials/8-slam/</a></li>
+<li>[5] <a href="https://husarion.com/tutorials/ros-tutorials/9-navigation/#cost-map">https://husarion.com/tutorials/ros-tutorials/9-navigation/#cost-map</a></li>
+<li>[6] <a href="https://web.fs.uni-lj.si/lampa/rosin/ROS%20Summer%20School/Day%203/mapping/#">https://web.fs.uni-lj.si/lampa/rosin/ROS%20Summer%20School/Day%203/mapping/#</a></li>
+</ul><hr />
+<footer role="contentinfo">
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><br>
+        The content for this site is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this site</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+</body>
