@@ -81,5 +81,5 @@ In this article, we covered how to configure ROS to run across multiple machines
 
 ## References
 
-* [1] https://wiki.ros.org/ROS/Tutorials/MultipleMachines
-* [2] https://wiki.ros.org/ROS/NetworkSetup#Configuring_.2Fetc.2Fhosts
+* [1] [https://wiki.ros.org/ROS/Tutorials/MultipleMachines](https://wiki.ros.org/ROS/Tutorials/MultipleMachines)
+* [2] [https://wiki.ros.org/ROS/NetworkSetup#Configuring_.2Fetc.2Fhosts](https://wiki.ros.org/ROS/NetworkSetup#Configuring_.2Fetc.2Fhosts)
