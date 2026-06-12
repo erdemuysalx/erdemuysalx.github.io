@@ -1,0 +1,9 @@
+[project]
+name = "pebble"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "markdown>=3.4",
+    "PyRSS2Gen>=1.1",
+    "PyYAML>=6.0",
+]

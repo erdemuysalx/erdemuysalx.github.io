@@ -1,1 +1,1 @@
-rm -rf build && python bloggen.py
+rm -rf build && uv run python pebble.py

@@ -1,3 +1,3 @@
 # erdo.dev
 
-This is my personal website, built with [bloggen-py](https://github.com/erdemuysalx/bloggen-py).
+This is my personal website, built with [pebble](https://github.com/erdemuysalx/pebble).

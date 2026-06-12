@@ -1,5 +1,6 @@
 website_url: 'https://www.erdo.dev'
 website_name: 'erdo.dev'
+source_url: 'https://github.com/erdemuysalx/erdemuysalx.github.io'
 author: 'Erdem'
 
 directories:
@@ -7,18 +8,19 @@ directories:
   blog: 'blog'
   public: 'public'
   output: 'build'
-  blog_output: 'build/blog'
 
 files:
   root_index: 'index.md'
   blog_index: 'pages/blog.md'
-  contact_index: 'pages/contact.md'
-  rss_feed: 'build/rss.xml'
 
 templates:
   header: 'header.html'
   footer: 'footer.html'
 
 misc:
+  nav_home: 'About me'
+  contact_url: '/contact'
   recent_posts_count: 5
   generate_rss: True
+  rss_filename: 'rss.xml'
+  rss_post_limit: 20
