@@ -7,6 +7,7 @@ with configurable templates and directory structure.
 """
 
 import os
+import re
 import sys
 import shutil
 import yaml
@@ -127,12 +128,53 @@ class WebsiteGenerator:
     # Markdown / templating
     # -------------------------------------------------------------------------
 
+    def _style_reference_numbers(self, html_content: str) -> str:
+        """Wrap leading [n] markers in paragraphs with a styled span at build time."""
+        return re.sub(
+            r'<p>(\[\d+\])',
+            r'<p><span class="ref-num">\1</span>',
+            html_content,
+        )
+
+    def _inject_post_meta(self, html_content: str, md_content: str, date: datetime) -> str:
+        date_str = date.strftime('%d %b %Y')
+        # Remove the bare date line that markdown renders as a standalone paragraph
+        html_content = html_content.replace(f'<p>{date_str}</p>', '')
+        words = len(md_content.split())
+        minutes = max(1, round(words / 200))
+        tag = (
+            f'<p class="reading-time">'
+            f'<span>{date_str}</span>'
+            f'<span>&nbsp;&middot;&nbsp;</span>'
+            f'<span>{minutes} min read</span>'
+            f'</p>'
+        )
+        for heading in ('</h1>', '</h2>', '</h3>'):
+            idx = html_content.find(heading)
+            if idx != -1:
+                end = idx + len(heading)
+                return html_content[:end] + tag + html_content[end:]
+        return tag + html_content
+
     def _markdown_convert(self, content: str) -> str:
         self._markdown.reset()
         return self._markdown.convert(content)
 
-    def _base_template_vars(self) -> Dict[str, str]:
+    def _build_nav_html(self, current_path: str) -> tuple[str, str]:
+        """Return (nav_home_active_attr, nav_links_html) with active class on current page."""
+        home_active = ' class="active"' if current_path == '/' else ''
+        items = []
+        for href, title in getattr(self, '_nav_items', []):
+            active = ' class="active"' if (
+                href == current_path or
+                (href != '/' and current_path.startswith(href))
+            ) else ''
+            items.append(f'<li><a href="{href}"{active}>{escape(title)}</a></li>')
+        return home_active, '\n\t\t\t\t'.join(items)
+
+    def _base_template_vars(self, current_path: str = '/') -> Dict[str, str]:
         rss_filename = self.config['misc'].get('rss_filename', 'rss.xml')
+        home_active, nav_links = self._build_nav_html(current_path)
         return {
             'WEBSITE_NAME': self.config['website_name'],
             'WEBSITE_URL': self.config['website_url'],
@@ -140,7 +182,8 @@ class WebsiteGenerator:
             'RSS_URL': f"/{rss_filename}",
             'SOURCE_URL': self.config.get('source_url', ''),
             'NAV_HOME': self.config['misc'].get('nav_home', 'Home'),
-            'NAV_LINKS': self._nav_links,
+            'NAV_HOME_ACTIVE': home_active,
+            'NAV_LINKS': nav_links,
             'CONTACT_URL': self.config['misc'].get('contact_url', '/contact'),
         }
 
@@ -154,20 +197,18 @@ class WebsiteGenerator:
             f.endswith('.md') for f in os.listdir(blog_dir)
         ))
 
-        items = []
+        self._nav_items = []  # list of (href, title) for deferred active-class injection
         if pages_dir and os.path.isdir(pages_dir):
             for filename in sorted(os.listdir(pages_dir)):
                 if not filename.endswith('.md'):
                     continue
                 file_path = os.path.join(pages_dir, filename)
-                # Blog index is a list-page template — link to the blog dir instead,
-                # but only if there are actual posts.
                 if blog_index and os.path.abspath(file_path) == os.path.abspath(blog_index):
                     if blog_has_posts:
                         try:
                             lines = self._read_file(file_path).splitlines()
                             title = self._extract_title(lines)
-                            items.append(f'<li><a href="/{blog_dir}">{escape(title)}</a></li>')
+                            self._nav_items.append((f'/{blog_dir}', title))
                         except Exception as e:
                             logger.warning(f"Could not read nav title from {file_path}: {e}")
                     continue
@@ -175,20 +216,18 @@ class WebsiteGenerator:
                     lines = self._read_file(file_path).splitlines()
                     title = self._extract_title(lines)
                     slug = os.path.splitext(filename)[0]
-                    items.append(f'<li><a href="/{slug}">{escape(title)}</a></li>')
+                    self._nav_items.append((f'/{slug}', title))
                 except Exception as e:
                     logger.warning(f"Could not read nav title from {file_path}: {e}")
-
-        self._nav_links = '\n\t\t\t\t'.join(items)
 
     def _apply_template(self, content: str, variables: Dict[str, str]) -> str:
         for key, value in variables.items():
             content = content.replace(f'{{{{{key}}}}}', value)
         return content
 
-    def _render_page(self, body_html: str, title: str) -> str:
+    def _render_page(self, body_html: str, title: str, current_path: str = '/') -> str:
         """Wrap body HTML with processed header and footer."""
-        template_vars = {**self._base_template_vars(), 'TITLE': title}
+        template_vars = {**self._base_template_vars(current_path), 'TITLE': title}
         return (
             self._apply_template(self._header_template, template_vars)
             + body_html
@@ -230,7 +269,7 @@ class WebsiteGenerator:
     # Build steps
     # -------------------------------------------------------------------------
 
-    def convert_markdown_to_html(self, input_directory: str, output_directory: str) -> List[Post]:
+    def convert_markdown_to_html(self, input_directory: str, output_directory: str, is_blog: bool = False) -> List[Post]:
         """Convert all markdown files in a directory tree to HTML pages."""
         if not os.path.exists(input_directory):
             logger.warning(f"Input directory does not exist: {input_directory}")
@@ -258,11 +297,15 @@ class WebsiteGenerator:
                     title = self._extract_title(lines)
                     date = self._extract_date(lines)
                     html_content = self._markdown_convert(md_content)
+                    if is_blog:
+                        html_content = self._inject_post_meta(html_content, md_content, date)
+                        html_content = self._style_reference_numbers(html_content)
 
                     relative_path = os.path.splitext(os.path.relpath(file_path, input_directory))[0]
                     output_file = os.path.join(output_directory, relative_path, 'index.html')
 
-                    self._write_file(output_file, self._render_page(html_content, title))
+                    page_path = '/' + relative_path + '/'
+                    self._write_file(output_file, self._render_page(html_content, title, page_path))
 
                     posts.append(Post(
                         title=title,
@@ -309,7 +352,7 @@ class WebsiteGenerator:
                 body_html += recent_html
 
         output_path = os.path.join(self.config['directories']['output'], 'index.html')
-        self._write_file(output_path, self._render_page(body_html, title))
+        self._write_file(output_path, self._render_page(body_html, title, '/'))
         logger.info(f"Generated index page: {output_path}")
 
     def generate_list_page(self, posts: List[Post], content_type: str,
@@ -333,7 +376,7 @@ class WebsiteGenerator:
             body_html += '</ul>\n'
 
         output_path = os.path.join(self.config['directories']['output'], output_subdir, 'index.html')
-        self._write_file(output_path, self._render_page(body_html, title))
+        self._write_file(output_path, self._render_page(body_html, title, f'/{output_subdir}'))
         logger.info(f"Generated {content_type} list page: {output_path}")
 
     def generate_rss(self, posts: List[Post]) -> None:
@@ -393,6 +436,7 @@ class WebsiteGenerator:
                 blog_posts = self.convert_markdown_to_html(
                     blog_dir,
                     os.path.join(output, blog_dir),
+                    is_blog=True,
                 )
 
             # Generate index and blog list
