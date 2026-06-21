@@ -5,3 +5,7 @@ I am a researcher and engineer working on autonomous systems. My research focus 
 ## Recent on my blog
 
 <!-- RECENT_POSTS -->
+
+## Selected projects
+
+<!-- SELECTED_PROJECTS -->

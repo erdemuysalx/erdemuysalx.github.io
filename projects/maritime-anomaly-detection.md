@@ -1,0 +1,8 @@
+# Maritime Anomaly Detection with Unsupervised Ensemble Learning
+2023-02-08
+GitHub: https://github.com/erdemuysalx/maritime-anomaly-detection
+Paper:
+Sprite:
+Order: 4
+
+An unsupervised learning pipeline for detecting anomalous vessel behavior from AIS (Automatic Identification System) tracking data, developed at the University of Stuttgart's Institute for Artificial Intelligence. The project focuses on cargo, tanker, and passenger vessels operating in the Long Beach, California region, identifying anomalies such as unexpected route deviations, abrupt speed or heading changes, and irregular trajectory patterns that may indicate navigational issues, security threats, or illegal activity. The pipeline combines a daily data ingestion and processing workflow with an ensemble voting approach across six clustering algorithms — Local Outlier Factor (LOF), Clustering-Based LOF, One-Class SVM, Isolation Forest, K-Nearest Neighbors, and Gaussian Mixture Models — to flag anomalous data points. A custom decision function then classifies entire vessel trajectories as anomalous based on model agreement scores and the proportion of flagged points, balancing detection robustness against false positives. The model was further validated by testing its trained behavior on unseen test data, surfacing interesting edge cases and highlighting the broader explainability challenges of unsupervised anomaly detection.

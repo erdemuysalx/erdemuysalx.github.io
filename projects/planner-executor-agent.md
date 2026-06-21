@@ -1,0 +1,9 @@
+# PEACE: A Planner–Executor Agent with Constraint Enforcement for UAVs
+2026-06-01
+GitHub: https://github.com/erdemuysalx/PEACE
+Paper: https://arxiv.org/pdf/2606.00104
+Image: /public/images/peace_overview.png
+Sprite: /public/images/me-pixel-uav.png
+Order: 1
+
+Abstract: Foundation models are increasingly used to drive autonomous systems, yet existing approaches either keep the model in a tight control loop, raising latency and hallucination risk, or compile natural language into opaque end-to-end policies that are hard to explain, constraint and require domain-specific datasets and fine-tuning. We propose a planner-executor agent for PX4-based drones that decouples high-level mission planning from low-level control. A large language model performs single-pass task planning, while execution is handled through a structured ROS 2 tool-calling interface bridged to MAVLink. The system constructs a world model by combining modular 2D detectors (e.g., YOLO or vision-language models) with a pinhole depth projection module for 3D object localization. A constraint enforcement layer enforces altitude limits and horizontal geofencing, and bounded replanning enables recovery from execution-time action failures. We position our approach within three common design patterns for foundation-model-based robotics systems and demonstrate its feasibility in PX4 software-in-the-loop simulations in Gazebo. Results highlight improved explainability, constraint enforcement, and reduced LLM calls compared to tightly coupled LLM control. The code, dataset, videos, and other material can be found at the following link: [https://github.com/erdemuysalx/PEACE](https://github.com/erdemuysalx/PEACE)
