@@ -3,7 +3,7 @@
    ========================================================================== */
 
 :root {
-  /* Colors */
+  /* Colors — Dracula background/foreground tokens */
   --bg-primary:    #282A36;
   --bg-secondary:  #44475A;
   --accent:        #bd93f9;
@@ -13,23 +13,35 @@
   --border:        #44475A;
   --border-bright: #6272a4;
 
-  /* Type scale — Major Third (×1.25) anchored at 1rem = 16 px */
-  --text-xs:   0.75rem;    /* 12 px — labels, dates         */
-  --text-sm:   0.875rem;   /* 14 px — muted, reading-time   */
-  --text-base: 1rem;       /* 16 px — body                  */
-  --text-lg:   1.125rem;   /* 18 px                         */
-  --text-h3:   1.25rem;    /* 20 px                         */
-  --text-h2:   1.5rem;     /* 24 px                         */
-  --text-h1:   1.875rem;   /* 30 px                         */
-  --text-nav:  1.125rem;   /* 18 px — nav title             */
+  /* Dracula syntax colors — code/text content */
+  --syntax-pink:   #ff79c6;
+  --syntax-yellow: #f1fa8c;
+  --syntax-cyan:   #8be9fd;
+  --syntax-orange: #ffb86c;
+  --syntax-red:    #ff5555;
 
-  /* Code uses a separate, slightly smaller scale */
-  --text-code-inline: 0.875em;   /* relative to parent — always 87.5% of context */
-  --text-code-block:  0.8125rem; /* 13 px — absolute, consistent in all blocks   */
+  /* Dracula functional colors — UI semantic states */
+  --func-red:    #de5735;
+  --func-yellow: #a39514;
+  --func-green:  #089108;
+  --func-cyan:   #0081d6;
+  --func-purple: #815cd6;
+
+  /* Type scale — Major Third (×1.25) anchored at 15 px
+     Slightly smaller than 16 px because monospace runs wider */
+  --text-xs:   0.733rem;   /* 11 px — labels, dates        */
+  --text-sm:   0.867rem;   /* 13 px — muted, reading-time  */
+  --text-base: 1rem;       /* 15 px — body                 */
+  --text-h3:   1.267rem;   /* 19 px                        */
+  --text-h2:   1.533rem;   /* 23 px                        */
+  --text-h1:   1.867rem;   /* 28 px                        */
+  --text-nav:  1.133rem;   /* 17 px — nav title            */
+
+  /* Code blocks are slightly smaller than body */
+  --text-code-inline: 0.9em;    /* relative — 90% of context */
+  --text-code-block:  0.867rem; /* 13 px — absolute          */
 
   /* Font stacks */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-               "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "Cascadia Code", "JetBrains Mono", "Fira Code",
                "Inconsolata", Menlo, Consolas, monospace;
 
@@ -57,17 +69,17 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 15px;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   font-size: var(--text-base);
-  line-height: 1.65;
-  max-width: 680px;
+  line-height: 1.7;
+  max-width: 720px;
   margin: 0 auto;
   padding: var(--sp-8) var(--sp-6);
   word-wrap: break-word;
@@ -84,6 +96,7 @@ body {
    ========================================================================== */
 
 h1, h2, h3, h4 {
+  font-family: var(--font-mono);
   line-height: 1.25;
   font-weight: 700;
   margin-top: var(--sp-8);
@@ -120,7 +133,7 @@ h3 {
 
 h3::before {
   content: '## ';
-  color: var(--text-muted);
+  color: var(--syntax-cyan);
   font-weight: 400;
   font-size: 0.85em;
 }
@@ -145,11 +158,14 @@ p {
 }
 
 blockquote {
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid var(--syntax-yellow);
   margin: var(--sp-4) 0;
-  padding: var(--sp-2) var(--sp-4);
+  padding: var(--sp-1) var(--sp-4);
   color: var(--text-muted);
-  font-style: italic;
+}
+
+blockquote::before {
+  content: '> ';
 }
 
 blockquote p:last-child {
@@ -158,21 +174,19 @@ blockquote p:last-child {
 
 hr {
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-bright);
   margin: var(--sp-6) 0;
 }
 
 .ref-num {
-  font-family: var(--font-mono);
   font-size: var(--text-sm);
   color: var(--text-muted);
   margin-right: var(--sp-2);
 }
 
 .reading-time {
-  font-family: var(--font-mono);
   font-size: var(--text-sm);
-  color: var(--text-muted);
+  color: var(--syntax-orange);
   margin-top: calc(-1 * var(--sp-2));
   margin-bottom: var(--sp-6);
   display: block;
@@ -189,7 +203,7 @@ hr {
 code {
   font-family: var(--font-mono);
   font-size: var(--text-code-inline);
-  color: var(--accent);
+  color: var(--syntax-cyan);
   background-color: var(--bg-secondary);
   border-radius: var(--radius-sm);
   padding: 0.1em 0.35em;
@@ -246,8 +260,8 @@ pre:hover .copy-btn {
 }
 
 .copy-btn.copied {
-  color: var(--green);
-  border-color: var(--green);
+  color: var(--func-green);
+  border-color: var(--func-green);
   opacity: 1;
 }
 
@@ -280,7 +294,7 @@ p > a {
 }
 
 a:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--func-purple);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -374,7 +388,7 @@ header {
 .blog span {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--text-muted);
+  color: var(--syntax-orange);
   min-width: 6.5rem;
   flex-shrink: 0;
   letter-spacing: 0.02em;
@@ -591,6 +605,59 @@ header {
 }
 
 /* ==========================================================================
+   Semantic text elements
+   ========================================================================== */
+
+del {
+  color: var(--syntax-red);
+  text-decoration-color: var(--syntax-red);
+}
+
+ins {
+  color: var(--func-green);
+  text-decoration: none;
+  background-color: rgba(8, 145, 8, 0.12);
+}
+
+mark {
+  background-color: rgba(255, 121, 198, 0.15);
+  color: var(--syntax-pink);
+  border-radius: var(--radius-sm);
+  padding: 0 0.2em;
+}
+
+kbd {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--syntax-cyan);
+  border: 1px solid var(--syntax-cyan);
+  border-radius: var(--radius-sm);
+  padding: 0.1em 0.35em;
+}
+
+/* ==========================================================================
+   Dracula syntax highlighting — Pygments/CodeHilite token classes
+   ========================================================================== */
+
+pre code .k,  pre code .kd, pre code .kn,
+pre code .kp, pre code .kr, pre code .kt { color: var(--syntax-pink); }
+pre code .s,  pre code .s1, pre code .s2,
+pre code .sb, pre code .sc, pre code .sd,
+pre code .se, pre code .sh, pre code .si,
+pre code .sx, pre code .sr, pre code .ss { color: var(--syntax-yellow); }
+pre code .nc, pre code .nd, pre code .ni,
+pre code .nn, pre code .nt              { color: var(--syntax-cyan); }
+pre code .nf, pre code .fm              { color: var(--func-green); }
+pre code .mi, pre code .mf, pre code .mh,
+pre code .mo, pre code .mb              { color: var(--syntax-orange); }
+pre code .c,  pre code .c1, pre code .cm,
+pre code .cs                            { color: var(--text-muted); font-style: italic; }
+pre code .err                           { color: var(--syntax-red); }
+pre code .o,  pre code .ow             { color: var(--syntax-pink); }
+pre code .na, pre code .nb             { color: var(--syntax-cyan); }
+pre code .no, pre code .bp             { color: var(--syntax-orange); }
+
+/* ==========================================================================
    Media & Tables
    ========================================================================== */
 
@@ -673,9 +740,9 @@ table th {
 
 #website-sprite {
   position: fixed;
-  /* Sit just outside the right edge of the 680px content column */
-  left: calc(50% + 360px);
-  bottom: 520px;
+  /* Sit just outside the right edge of the 720px content column */
+  left: calc(50% + 370px);
+  bottom: 420px;
   z-index: 100;
   user-select: none;
   -webkit-user-select: none;
