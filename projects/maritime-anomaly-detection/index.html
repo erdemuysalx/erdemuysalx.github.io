@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>Maritime Anomaly Detection with Unsupervised Ensemble Learning</title>
+	<link rel="alternate" type="application/rss+xml" title="erdo.dev RSS Feed" href="/rss.xml">
+	<link rel="stylesheet" href="/public/css/style.css?v=1782066253">
+</head>
+
+<body>
+	<header>
+		<nav class="navbar">
+			<span>/home/erdo.dev</span>
+			<ul>
+				<li><a href="/">About me</a></li>
+				<li><a href="/blog">Blog</a></li>
+				<li><a href="/projects" class="active">Projects</a></li>
+				<li><a href="/contact">Contact</a></li>
+			</ul>
+		</nav>
+		<hr>
+	</header>
+<main>
+<h1>Maritime Anomaly Detection with Unsupervised Ensemble Learning</h1><p class="project-page-links"><a class="project-btn" href="https://github.com/erdemuysalx/maritime-anomaly-detection">GitHub &nearr;</a></p>
+<p>An unsupervised learning pipeline for detecting anomalous vessel behavior from AIS (Automatic Identification System) tracking data, developed at the University of Stuttgart's Institute for Artificial Intelligence. The project focuses on cargo, tanker, and passenger vessels operating in the Long Beach, California region, identifying anomalies such as unexpected route deviations, abrupt speed or heading changes, and irregular trajectory patterns that may indicate navigational issues, security threats, or illegal activity. The pipeline combines a daily data ingestion and processing workflow with an ensemble voting approach across six clustering algorithms — Local Outlier Factor (LOF), Clustering-Based LOF, One-Class SVM, Isolation Forest, K-Nearest Neighbors, and Gaussian Mixture Models — to flag anomalous data points. A custom decision function then classifies entire vessel trajectories as anomalous based on model agreement scores and the proportion of flagged points, balancing detection robustness against false positives. The model was further validated by testing its trained behavior on unseen test data, surfacing interesting edge cases and highlighting the broader explainability challenges of unsupervised anomaly detection.</p></main>
+
+<div id="website-sprite" data-state="idle" role="img" aria-label="Draggable pixel art figure">
+  <img src="/public/images/me-pixel-standing.png" alt="" draggable="false">
+</div>
+
+<footer role="contentinfo">
+    <hr />
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><span>&nbsp;|&nbsp;</span><a href="/rss.xml">RSS</a><br>
+        The content for this website is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this website</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+<script src="/public/js/main.js?v=1782066253"></script>
+</body>
+</html>

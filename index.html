@@ -7,7 +7,7 @@
 	<meta name="color-scheme" content="dark light">
 	<title>Hi, I am Erdem!</title>
 	<link rel="alternate" type="application/rss+xml" title="erdo.dev RSS Feed" href="/rss.xml">
-	<link rel="stylesheet" href="/public/css/style.css">
+	<link rel="stylesheet" href="/public/css/style.css?v=1782066253">
 </head>
 
 <body>
@@ -15,31 +15,55 @@
 		<nav class="navbar">
 			<span>/home/erdo.dev</span>
 			<ul>
-				<li><a href="/">About me</a></li>
+				<li><a href="/" class="active">About me</a></li>
 				<li><a href="/blog">Blog</a></li>
+				<li><a href="/projects">Projects</a></li>
 				<li><a href="/contact">Contact</a></li>
 			</ul>
 		</nav>
 		<hr>
-	</header><h1>Hi, I am Erdem!</h1>
+	</header>
+<main>
+<h1>Hi, I am Erdem!</h1>
 <p>I am a researcher and engineer working on autonomous systems. My research focus is on advancing the frontiers of AI for autonomous intelligent systems, exploring how intelligent agents can perceive, reason, and act in complex and dynamic environments. My work spans the development of novel algorithms and architectures that enable machines to learn, adapt, and make decisions autonomously</p>
 <h2>Recent on my blog</h2>
 <ul class="blog">
+<li><span>08 Feb 2023</span><a href="/blog/2023-02-08_Maritime-Anomaly-Detection-with-Unsupervised-Ensemble-Learning/">Maritime Anomaly Detection with Unsupervised Ensemble Learning</a></li>
 <li><span>15 Apr 2022</span><a href="/blog/2022-04-15_Running_ROS_Across_Multiple_Machines/">Running ROS Across Multiple Machines</a></li>
 <li><span>07 Mar 2022</span><a href="/blog/2022-03-07_SLAM_and_Navigation_in_ROS/">SLAM and Navigation in ROS</a></li>
 <li><span>12 Feb 2022</span><a href="/blog/2022-02-12_ROS-File-System/">ROS File System</a></li>
 <li><span>27 Jan 2022</span><a href="/blog/2022-01-27_ROS-Conceptual-Design-Patterns/">ROS Conceptual Design Patters</a></li>
-<li><span>12 Sep 2021</span><a href="/blog/2021-09-12_Linux-Process-Isolation-and-Docker-Containers/">Linux Process Isolation and Docker Containers</a></li>
 </ul>
 <p><a href="/blog">View all blog posts &rarr;</a></p>
+
+
+<h2>Selected projects</h2>
+<div class="carousel-wrapper"><div class="project-carousel">
+<div class="carousel-page">
+<article class="project-card" data-card-sprite="/public/images/me-pixel-uav.png"><a href="/projects/planner-executor-agent/" class="project-card-image-link"><img class="project-card-image" src="/public/images/peace_overview.png" alt="PEACE: A Planner–Executor Agent with Constraint Enforcement for UAVs"></a><div class="project-card-body"><h3><a href="/projects/planner-executor-agent/">PEACE: A Planner–Executor Agent with Constraint Enforcement for UAVs</a></h3><p class="project-card-description">Foundation models are increasingly used to drive autonomous systems, yet existing approaches either keep the model in a tight control loop, raising latency and hallucination risk, or compile natural language into opaque end-to-end policies that are hard to explain, constraint and require domain-specific datasets and fine-tuning. We propose a planner-executor agent for PX4-based drones that decouples high-level mission planning from low-level control. A large language model performs single-pass task planning, while execution is handled through a structured ROS 2 tool-calling interface bridged to MAVLink. The system constructs a world model by combining modular 2D detectors (e.g., YOLO or vision-language models) with a pinhole depth projection module for 3D object localization. A constraint enforcement layer enforces altitude limits and horizontal geofencing, and bounded replanning enables recovery from execution-time action failures. We position our approach within three common design patterns for foundation-model-based robotics systems and demonstrate its feasibility in PX4 software-in-the-loop simulations in Gazebo. Results highlight improved explainability, constraint enforcement, and reduced LLM calls compared to tightly coupled LLM control. The code, dataset, videos, and other material can be found at the following link: https://github.com/erdemuysalx/PEACE</p><div class="project-card-footer"><a class="project-btn" href="https://github.com/erdemuysalx/PEACE">GitHub &nearr;</a><a class="project-btn" href="https://arxiv.org/pdf/2606.00104">Paper &nearr;</a></div></div></article><article class="project-card" data-card-sprite="/public/images/me-pixel-quadrupped.png"><a href="/projects/pedestrian-crossing-action-prediction/" class="project-card-image-link"><img class="project-card-image" src="/public/images/pedestrian-crossing-action-prediction.gif" alt="Pedestrian Crossing Action Prediction: A Comparative Study Using a Novel Dataset"></a><div class="project-card-body"><h3><a href="/projects/pedestrian-crossing-action-prediction/">Pedestrian Crossing Action Prediction: A Comparative Study Using a Novel Dataset</a></h3><p class="project-card-description">Pedestrian crossing action prediction has been the subject of active research in recent years. Despite the inherent difficulty in obtaining representative real-world data, the research community has developed numerous cutting-edge algorithmic solutions. The existing datasets are constrained in their ability to capture a diverse range of pedestrian behaviors and environments, which limits their applicability in a broader context. In an effort to help align the research community’s contributions with real-world self-driving problems, we present a comparative study using the novel, diverse, and Europe-centric EuroCity Persons-Intention (ECP-I) dataset. The primary objective of this study is to assess the usability of the ECP-I dataset by identifying any shortcomings and limitations through a comprehensive analysis. In order to achieve this objective, we analyze the generalizability and cross-evaluate SOTA across multiple datasets in addition to our ECP-I dataset. As a result of this study, we present the performance changes through key differences between datasets. Our investigation of the ECP-I dataset represents a pioneering effort in the field of pedestrian crossing action prediction.</p><div class="project-card-footer"></div></div></article></div>
+<div class="carousel-page">
+<article class="project-card" data-card-sprite="/public/images/me-pixel-mobile_robot.png"><a href="/projects/pedestrian-trajectory-prediction/" class="project-card-image-link"><img class="project-card-image" src="/public/images/pedestrian-trajectory-prediction.gif" alt="Behavior-Aware Pedestrian Trajectory Prediction"></a><div class="project-card-body"><h3><a href="/projects/pedestrian-trajectory-prediction/">Behavior-Aware Pedestrian Trajectory Prediction</a></h3><p class="project-card-description">Navigating through urban environments is a safety-critical task in autonomous driving due to the existing vulnerable road users. In this report, we study the problem of predicting pedestrian trajectory from an onboard camera perspective. Most of the current works are flawed at capturing the dynamics of pedestrian motions. We propose a Behavior-Aware Transformer (BAT) which leverages a transformer network and behavioral features to model the highly dynamic behavior of pedestrians in urban traffic. Our method includes modifications and extensions upon a baseline method. BAT method fuses the past observed trajectory, ego-vehicle’s speed and behavioral features, pose, and body orientation, using the intermediate fusion stage. The resulting mixed representation from the intermediate fusion stage is passed to the decoder where it is jointly decoded with optical flow representation from the center and target areas which are incorporated to compensate for the ego-motion of the vehicle. Our Behavior-Aware Transformer is evaluated on the PIE dataset and showed both quantitatively and qualitatively that utilizing behavioral features enables our method to capture the highly dynamic behaviors of pedestrians.</p><div class="project-card-footer"></div></div></article><article class="project-card"><a href="/projects/maritime-anomaly-detection/" class="project-card-image-link"><div class="project-card-placeholder">[ no preview ]</div></a><div class="project-card-body"><h3><a href="/projects/maritime-anomaly-detection/">Maritime Anomaly Detection with Unsupervised Ensemble Learning</a></h3><p class="project-card-description">An unsupervised learning pipeline for detecting anomalous vessel behavior from AIS (Automatic Identification System) tracking data, developed at the University of Stuttgart&#x27;s Institute for Artificial Intelligence. The project focuses on cargo, tanker, and passenger vessels operating in the Long Beach, California region, identifying anomalies such as unexpected route deviations, abrupt speed or heading changes, and irregular trajectory patterns that may indicate navigational issues, security threats, or illegal activity. The pipeline combines a daily data ingestion and processing workflow with an ensemble voting approach across six clustering algorithms — Local Outlier Factor (LOF), Clustering-Based LOF, One-Class SVM, Isolation Forest, K-Nearest Neighbors, and Gaussian Mixture Models — to flag anomalous data points. A custom decision function then classifies entire vessel trajectories as anomalous based on model agreement scores and the proportion of flagged points, balancing detection robustness against false positives. The model was further validated by testing its trained behavior on unseen test data, surfacing interesting edge cases and highlighting the broader explainability challenges of unsupervised anomaly detection.</p><div class="project-card-footer"><a class="project-btn" href="https://github.com/erdemuysalx/maritime-anomaly-detection">GitHub &nearr;</a></div></div></article></div>
+<div class="carousel-page">
+<article class="project-card" data-card-sprite="/public/images/me-pixel-uav.png"><a href="/projects/uav-altitude-controller/" class="project-card-image-link"><img class="project-card-image" src="/public/images/uav-altitude-controller.gif" alt="UAV Altitude Controller"></a><div class="project-card-body"><h3><a href="/projects/uav-altitude-controller/">UAV Altitude Controller</a></h3><p class="project-card-description">A PD-based altitude controller for a quadcopter UAV, developed at the University of Stuttgart&#x27;s Institute of Flight Mechanics and Controls. The project covers the full control design pipeline: evaluating height-sensing options, deriving the system&#x27;s transfer function via Laplace transform and block diagram reduction, and tuning a PD controller with a complementary low-pass/high-pass filter structure to suppress derivative noise while maintaining fast response. The controller was modeled in Simulink, characterized as a second-order (PT2) system, and validated through simulation with multiple damping/frequency configurations (e.g., ζ=0.9, ω=4) showing stable hover tracking with minimal steady-state error. Final validation included closed-loop testing in a Gazebo simulation environment with a simulated RC interface.</p><div class="project-card-footer"><a class="project-btn" href="https://github.com/erdemuysalx/uav-altitude-controller">GitHub &nearr;</a></div></div></article></div>
+</div>
+<div class="carousel-dots"><button class="carousel-dot active" aria-label="Go to page 1"></button><button class="carousel-dot" aria-label="Go to page 2"></button><button class="carousel-dot" aria-label="Go to page 3"></button></div>
+</div>
+<p><a href="/projects">View all projects &rarr;</a></p>
+</main>
+
+<div id="website-sprite" data-state="idle" role="img" aria-label="Draggable pixel art figure">
+  <img src="/public/images/me-pixel-standing.png" alt="" draggable="false">
+</div>
+
 <footer role="contentinfo">
     <hr />
     <small>
         <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><span>&nbsp;|&nbsp;</span><a href="/rss.xml">RSS</a><br>
-        The content for this site is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The content for this website is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
         The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this website</a>
         is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
     </small>
 </footer>
+<script src="/public/js/main.js?v=1782066253"></script>
 </body>
 </html>

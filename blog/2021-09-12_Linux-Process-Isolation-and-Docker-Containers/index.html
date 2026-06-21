@@ -7,7 +7,7 @@
 	<meta name="color-scheme" content="dark light">
 	<title>Linux Process Isolation and Docker Containers</title>
 	<link rel="alternate" type="application/rss+xml" title="erdo.dev RSS Feed" href="/rss.xml">
-	<link rel="stylesheet" href="/public/css/style.css">
+	<link rel="stylesheet" href="/public/css/style.css?v=1782066253">
 </head>
 
 <body>
@@ -17,12 +17,15 @@
 			<ul>
 				<li><a href="/">About me</a></li>
 				<li><a href="/blog">Blog</a></li>
+				<li><a href="/projects">Projects</a></li>
 				<li><a href="/contact">Contact</a></li>
 			</ul>
 		</nav>
 		<hr>
-	</header><h1>Linux Process Isolation and Docker Containers</h1>
-<p>12 Sep 2021</p>
+	</header>
+<main>
+<h1>Linux Process Isolation and Docker Containers</h1><p class="reading-time"><span>12 Sep 2021</span><span>&nbsp;&middot;&nbsp;</span><span>9 min read</span></p>
+
 <p><img alt="" src="https://cdn-images-1.medium.com/max/800/1*ekWrA5PWqYMHgc_82A5BNQ.png" /></p>
 <p>In today's rapidly evolving technological landscape, managing software environments and ensuring consistency across various systems are paramount. This need has led to the widespread adoption of containerization - a method that provides a lightweight, efficient solution for isolating applications and their dependencies. Containers have become a cornerstone of modern software development and deployment, offering significant advantages over traditional virtual machines.</p>
 <p>This article delves into the fundamentals of Linux process isolation and how Docker containers leverage this concept. We will explore the key techniques that enable process isolation, such as <code>chroot</code>, namespaces, and cgroups, and compare them with virtual machines to understand the distinct advantages of containers. Additionally, we will cover practical aspects of Docker, from installation to managing containers, illustrating how it simplifies application deployment and enhances development workflows. By understanding these concepts, we can appreciate why containers are a preferred choice for many developers and organizations today.</p>
@@ -167,22 +170,29 @@ CMD [ &quot;python3&quot;, &quot;-m&quot; , &quot;flask&quot;, &quot;run&quot;, 
 <p>You can now build your web app’s Docker image using the Dockerfile above and by typing the command <code>docker build -t python-docket:v0</code> . Afterward, you achieve a Docker image that wraps your web app and it is ready to deploy.</p>
 <p>Thank you for reading this article, and I will see you in the next one!</p>
 <h2>References</h2>
-<p>[1] <a href="https://man7.org/linux/man-pages/man2/chroot.2.html">https://man7.org/linux/man-pages/man2/chroot.2.html</a></p>
-<p>[2] <a href="https://www.ibm.com/docs/en/zos/2.2.0?topic=descriptions-chroot-change-root-directory-execution-command">https://www.ibm.com/docs/en/zos/2.2.0?topic=descriptions-chroot-change-root-directory-execution-command</a></p>
-<p>[3] <a href="https://man7.org/linux/man-pages/man1/unshare.1.html">https://man7.org/linux/man-pages/man1/unshare.1.html</a></p>
-<p>[4] <a href="https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/">https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/</a></p>
-<p>[5] <a href="https://man7.org/linux/man-pages/man7/cgroups.7.html">https://man7.org/linux/man-pages/man7/cgroups.7.html</a></p>
-<p>[6] <a href="https://www.ibm.com/docs/en/spectrum-symphony/7.3.0?topic=limits-control-groups-cgroups-limiting-resource-usage-linux">https://www.ibm.com/docs/en/spectrum-symphony/7.3.0?topic=limits-control-groups-cgroups-limiting-resource-usage-linux</a></p>
-<p>[7] <a href="https://docs.docker.com/get-started/overview/">https://docs.docker.com/get-started/overview/</a></p>
-<p>[8] <a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a></p>
-<p>[9] <a href="https://docs.docker.com/language/python/build-images/">https://docs.docker.com/language/python/build-images/</a></p><footer role="contentinfo">
+<p><span class="ref-num">[1]</span> <a href="https://man7.org/linux/man-pages/man2/chroot.2.html">https://man7.org/linux/man-pages/man2/chroot.2.html</a></p>
+<p><span class="ref-num">[2]</span> <a href="https://www.ibm.com/docs/en/zos/2.2.0?topic=descriptions-chroot-change-root-directory-execution-command">https://www.ibm.com/docs/en/zos/2.2.0?topic=descriptions-chroot-change-root-directory-execution-command</a></p>
+<p><span class="ref-num">[3]</span> <a href="https://man7.org/linux/man-pages/man1/unshare.1.html">https://man7.org/linux/man-pages/man1/unshare.1.html</a></p>
+<p><span class="ref-num">[4]</span> <a href="https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/">https://www.nginx.com/blog/what-are-namespaces-cgroups-how-do-they-work/</a></p>
+<p><span class="ref-num">[5]</span> <a href="https://man7.org/linux/man-pages/man7/cgroups.7.html">https://man7.org/linux/man-pages/man7/cgroups.7.html</a></p>
+<p><span class="ref-num">[6]</span> <a href="https://www.ibm.com/docs/en/spectrum-symphony/7.3.0?topic=limits-control-groups-cgroups-limiting-resource-usage-linux">https://www.ibm.com/docs/en/spectrum-symphony/7.3.0?topic=limits-control-groups-cgroups-limiting-resource-usage-linux</a></p>
+<p><span class="ref-num">[7]</span> <a href="https://docs.docker.com/get-started/overview/">https://docs.docker.com/get-started/overview/</a></p>
+<p><span class="ref-num">[8]</span> <a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a></p>
+<p><span class="ref-num">[9]</span> <a href="https://docs.docker.com/language/python/build-images/">https://docs.docker.com/language/python/build-images/</a></p></main>
+
+<div id="website-sprite" data-state="idle" role="img" aria-label="Draggable pixel art figure">
+  <img src="/public/images/me-pixel-standing.png" alt="" draggable="false">
+</div>
+
+<footer role="contentinfo">
     <hr />
     <small>
         <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><span>&nbsp;|&nbsp;</span><a href="/rss.xml">RSS</a><br>
-        The content for this site is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The content for this website is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
         The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this website</a>
         is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
     </small>
 </footer>
+<script src="/public/js/main.js?v=1782066253"></script>
 </body>
 </html>

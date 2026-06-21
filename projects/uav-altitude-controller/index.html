@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>UAV Altitude Controller</title>
+	<link rel="alternate" type="application/rss+xml" title="erdo.dev RSS Feed" href="/rss.xml">
+	<link rel="stylesheet" href="/public/css/style.css?v=1782066253">
+</head>
+
+<body>
+	<header>
+		<nav class="navbar">
+			<span>/home/erdo.dev</span>
+			<ul>
+				<li><a href="/">About me</a></li>
+				<li><a href="/blog">Blog</a></li>
+				<li><a href="/projects" class="active">Projects</a></li>
+				<li><a href="/contact">Contact</a></li>
+			</ul>
+		</nav>
+		<hr>
+	</header>
+<main>
+<h1>UAV Altitude Controller</h1><p class="project-page-links"><a class="project-btn" href="https://github.com/erdemuysalx/uav-altitude-controller">GitHub &nearr;</a></p>
+<p>A PD-based altitude controller for a quadcopter UAV, developed at the University of Stuttgart's Institute of Flight Mechanics and Controls. The project covers the full control design pipeline: evaluating height-sensing options, deriving the system's transfer function via Laplace transform and block diagram reduction, and tuning a PD controller with a complementary low-pass/high-pass filter structure to suppress derivative noise while maintaining fast response. The controller was modeled in Simulink, characterized as a second-order (PT2) system, and validated through simulation with multiple damping/frequency configurations (e.g., ζ=0.9, ω=4) showing stable hover tracking with minimal steady-state error. Final validation included closed-loop testing in a Gazebo simulation environment with a simulated RC interface.</p></main>
+
+<div id="website-sprite" data-state="idle" role="img" aria-label="Draggable pixel art figure">
+  <img src="/public/images/me-pixel-standing.png" alt="" draggable="false">
+</div>
+
+<footer role="contentinfo">
+    <hr />
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><span>&nbsp;|&nbsp;</span><a href="/rss.xml">RSS</a><br>
+        The content for this website is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this website</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+<script src="/public/js/main.js?v=1782066253"></script>
+</body>
+</html>

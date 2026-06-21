@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>Behavior-Aware Pedestrian Trajectory Prediction</title>
+	<link rel="alternate" type="application/rss+xml" title="erdo.dev RSS Feed" href="/rss.xml">
+	<link rel="stylesheet" href="/public/css/style.css?v=1782066253">
+</head>
+
+<body>
+	<header>
+		<nav class="navbar">
+			<span>/home/erdo.dev</span>
+			<ul>
+				<li><a href="/">About me</a></li>
+				<li><a href="/blog">Blog</a></li>
+				<li><a href="/projects" class="active">Projects</a></li>
+				<li><a href="/contact">Contact</a></li>
+			</ul>
+		</nav>
+		<hr>
+	</header>
+<main>
+<h1>Behavior-Aware Pedestrian Trajectory Prediction</h1>
+<p>Abstract: Navigating through urban environments is a safety-critical task in autonomous driving due to the existing vulnerable road users. In this report, we study the problem of predicting pedestrian trajectory from an onboard camera perspective. Most of the current works are flawed at capturing the dynamics of pedestrian motions. We propose a Behavior-Aware Transformer (BAT) which leverages a transformer network and behavioral features to model the highly dynamic behavior of pedestrians in urban traffic. Our method includes modifications and extensions upon a baseline method. BAT method fuses the past observed trajectory, ego-vehicle’s speed and behavioral features, pose, and body orientation, using the intermediate fusion stage. The resulting mixed representation from the intermediate fusion stage is passed to the decoder where it is jointly decoded with optical flow representation from the center and target areas which are incorporated to compensate for the ego-motion of the vehicle. Our Behavior-Aware Transformer is evaluated on the PIE dataset and showed both quantitatively and qualitatively that utilizing behavioral features enables our method to capture the highly dynamic behaviors of pedestrians.</p></main>
+
+<div id="website-sprite" data-state="idle" role="img" aria-label="Draggable pixel art figure">
+  <img src="/public/images/me-pixel-standing.png" alt="" draggable="false">
+</div>
+
+<footer role="contentinfo">
+    <hr />
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><span>&nbsp;|&nbsp;</span><a href="/rss.xml">RSS</a><br>
+        The content for this website is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this website</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+<script src="/public/js/main.js?v=1782066253"></script>
+</body>
+</html>

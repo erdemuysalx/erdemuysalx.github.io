@@ -7,7 +7,7 @@
 	<meta name="color-scheme" content="dark light">
 	<title>Music Generation with LSTM Based RNN</title>
 	<link rel="alternate" type="application/rss+xml" title="erdo.dev RSS Feed" href="/rss.xml">
-	<link rel="stylesheet" href="/public/css/style.css">
+	<link rel="stylesheet" href="/public/css/style.css?v=1782066253">
 </head>
 
 <body>
@@ -17,12 +17,15 @@
 			<ul>
 				<li><a href="/">About me</a></li>
 				<li><a href="/blog">Blog</a></li>
+				<li><a href="/projects">Projects</a></li>
 				<li><a href="/contact">Contact</a></li>
 			</ul>
 		</nav>
 		<hr>
-	</header><h1>Music Generation with LSTM Based RNN</h1>
-<p>03 Apr 2021</p>
+	</header>
+<main>
+<h1>Music Generation with LSTM Based RNN</h1><p class="reading-time"><span>03 Apr 2021</span><span>&nbsp;&middot;&nbsp;</span><span>9 min read</span></p>
+
 <p>Hello everyone. In this article, I will try to explain what I know about music generation with LSTM (long short-term memory) based RNN (recursive neural networks). Let's first examine what kind of information contains the dataset I have used in the training phase of the model.</p>
 <h2>About the Dataset</h2>
 <p>As we all know, music is represented by notes. I preferred to use an alternative note system in the dataset, known as the ABC notation, instead of the classical notes in the style of Do, Re, Mi, etc. In ABC notation, numbers, and special characters are used along with letter notations from A to G to represent the given notes. Each letter corresponds to classical notes such as Do, Re, and Mi in classical notes. In addition to the notes that make up the melody, other units are used as additional information; reference number, composer, origin, note length, tempo, rhythm key, ornament, etc. Each of these values ​​constitutes the features of our data set. The ABC notation is often used to represent traditional folk music. The dataset I have used is compiled from <a href="https://cobb.ece.wisc.edu/irish/Tunebook.html">Cobb’s Irish Folk Music</a> [1]. Below you will see sample music expressed with ABC notation from the dataset.</p>
@@ -197,17 +200,24 @@ _________________________________________________________________
 
 <p>I did not want to share all the codes here because the article will be too long. However, I shared the dataset and the notebook on <a href="https://github.com/erdemuysalx/ComposerAI">GitHub</a> for everyone to experiment. See you in the next article.</p>
 <h2>References</h2>
-<p>[1] <a href="https://cobb.ece.wisc.edu/irish/Tunebook.html">https://cobb.ece.wisc.edu/irish/Tunebook.html</a></p>
-<p>[2] <a href="https://machinelearningmastery.com/how-to-prepare-categorical-data-for-deep-learning-in-python/">https://machinelearningmastery.com/how-to-prepare-categorical-data-for-deep-learning-in-python/</a></p>
-<p>[3] <a href="http://introtodeeplearning.com/">http://introtodeeplearning.com/</a></p>
-<p>[4] <a href="https://stanford.edu/~shervine/l/tr/teaching/cs-230/cheatsheet-recurrent-neural-networks">https://stanford.edu/~shervine/l/tr/teaching/cs-230/cheatsheet-recurrent-neural-networks</a></p><footer role="contentinfo">
+<p><span class="ref-num">[1]</span> <a href="https://cobb.ece.wisc.edu/irish/Tunebook.html">https://cobb.ece.wisc.edu/irish/Tunebook.html</a></p>
+<p><span class="ref-num">[2]</span> <a href="https://machinelearningmastery.com/how-to-prepare-categorical-data-for-deep-learning-in-python/">https://machinelearningmastery.com/how-to-prepare-categorical-data-for-deep-learning-in-python/</a></p>
+<p><span class="ref-num">[3]</span> <a href="http://introtodeeplearning.com/">http://introtodeeplearning.com/</a></p>
+<p><span class="ref-num">[4]</span> <a href="https://stanford.edu/~shervine/l/tr/teaching/cs-230/cheatsheet-recurrent-neural-networks">https://stanford.edu/~shervine/l/tr/teaching/cs-230/cheatsheet-recurrent-neural-networks</a></p></main>
+
+<div id="website-sprite" data-state="idle" role="img" aria-label="Draggable pixel art figure">
+  <img src="/public/images/me-pixel-standing.png" alt="" draggable="false">
+</div>
+
+<footer role="contentinfo">
     <hr />
     <small>
         <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><span>&nbsp;|&nbsp;</span><a href="/rss.xml">RSS</a><br>
-        The content for this site is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The content for this website is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
         The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this website</a>
         is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
     </small>
 </footer>
+<script src="/public/js/main.js?v=1782066253"></script>
 </body>
 </html>

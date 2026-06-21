@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="dark light">
+	<title>Maritime Anomaly Detection with Unsupervised Ensemble Learning</title>
+	<link rel="alternate" type="application/rss+xml" title="erdo.dev RSS Feed" href="/rss.xml">
+	<link rel="stylesheet" href="/public/css/style.css?v=1782066253">
+</head>
+
+<body>
+	<header>
+		<nav class="navbar">
+			<span>/home/erdo.dev</span>
+			<ul>
+				<li><a href="/">About me</a></li>
+				<li><a href="/blog">Blog</a></li>
+				<li><a href="/projects">Projects</a></li>
+				<li><a href="/contact">Contact</a></li>
+			</ul>
+		</nav>
+		<hr>
+	</header>
+<main>
+<h1>Maritime Anomaly Detection with Unsupervised Ensemble Learning</h1><p class="reading-time"><span>08 Feb 2023</span><span>&nbsp;&middot;&nbsp;</span><span>11 min read</span></p>
+
+<p>Anomaly detection is becoming increasingly significant in the maritime industry, where the detection of potential security threats and illegal activities such as piracy, smuggling, and human trafficking is critical. To ensure safe navigation and improve the efficiency of maritime operations, many companies are turning to machine learning techniques, such as anomaly detection, to detect unusual behavior in vessels. These anomalies could include deviations from planned routes, sudden changes in speed or heading, or collisions. This blog documents the details of the project I worked on as part of the Artificial Intelligence Labarotory course on Maritime Anomaly Detection at the University of Stuttgart, which aims to identify anomalies in maritime data and provide early warnings of potential security threats or illegal activities. We built an unsupervised ensemble system to detect anomalous vessel trajectories from AIS data. This blog focuses on the technical decisions: data pipeline design, algorithm selection, ensemble construction, and the evaluation challenges that come with having no ground truth labels.</p>
+<h2>Problem Definition</h2>
+<p>The task is trajectory-level anomaly detection over maritime AIS data. An anomaly in this context is a vessel trajectory — or a segment of one — that deviates significantly from expected behavior in terms of speed, heading, or spatial position. Examples include:</p>
+<ul>
+<li>Sudden speed changes inconsistent with the vessel type or route</li>
+<li>Large, unexplained heading deviations</li>
+<li>Trajectories that enter unusual spatial regions (shallow water, restricted zones)</li>
+</ul>
+<p>No labeled dataset exists for this problem in the general case, which rules out supervised approaches and makes evaluation non-trivial. The system must learn what "normal" looks like from data alone.</p>
+<p><strong>Scope constraints:</strong>
+- Region: Long Beach, California (bounding box applied at preprocessing time)
+- Vessel types: Cargo (including tankers) and Passenger
+- Temporal resolution: 1-minute resampled time series</p>
+<h2>Automatic Identification System (AIS) Data</h2>
+<p>AIS (Automatic Identification System) data is a mandatory broadcast signal from vessels, updated at intervals ranging from 2 seconds (for vessels under way) to 3 minutes (for vessels at anchor). The fields we worked with:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MMSI</td>
+<td>Maritime Mobile Service Identity — unique vessel ID</td>
+</tr>
+<tr>
+<td>LAT, LON</td>
+<td>Spatial position in decimal degrees</td>
+</tr>
+<tr>
+<td>SOG</td>
+<td>Speed Over Ground in knots</td>
+</tr>
+<tr>
+<td>COG</td>
+<td>Course Over Ground in degrees (0–360)</td>
+</tr>
+<tr>
+<td>Heading</td>
+<td>True heading of the vessel's bow in degrees</td>
+</tr>
+<tr>
+<td>Vessel Type</td>
+<td>Categorical: cargo, tanker, passenger, etc.</td>
+</tr>
+<tr>
+<td>Draft, Length, Width</td>
+<td>Physical vessel dimensions</td>
+</tr>
+</tbody>
+</table>
+<p>COG and Heading are related but distinct. COG is the actual direction of movement (affected by current and wind); Heading is where the bow points. The difference between them is the leeway angle, which itself can be a useful anomaly signal.</p>
+<p>Raw AIS data is noisy: duplicate records, missing values, transmission gaps, and GPS errors are common. Before modelling, the data needs significant cleaning.</p>
+<h2>Data Pipeline</h2>
+<h3>Preprocessing</h3>
+<p>The pipeline handled the following in order:</p>
+<ol>
+<li><strong>Deduplication and NaN removal</strong> — exact duplicate rows and rows with missing spatial or kinematic values were dropped.</li>
+<li><strong>Stationary vessel filtering</strong> — records with SOG = 0 were removed. Stationary vessels have a very different behavioral signature from vessels under way, and mixing them would confuse the models.</li>
+<li><strong>Vessel type filtering</strong> — only cargo and passenger vessel types were retained.</li>
+<li><strong>Spatial filtering</strong> — bounding box over the Long Beach region.</li>
+<li><strong>Data type optimization</strong> — downcasting numeric columns (e.g., <code>float64</code> → <code>float32</code>) to reduce memory pressure when working with large AIS archives.</li>
+</ol>
+<h3>Trajectory Construction</h3>
+<p>From the filtered point data, per-vessel time series were constructed:</p>
+<ul>
+<li><strong>Temporal resampling at 1-minute intervals</strong> — gaps were forward-filled up to a threshold; trajectories with large gaps were split.</li>
+<li><strong>Minimum trajectory length: 100 data points</strong> (100 minutes of continuous signal). Shorter trajectories were discarded as too short to characterize behavior.</li>
+<li><strong>Feature engineering:</strong></li>
+<li>Heading computed from consecutive lat/lon pairs using the haversine bearing formula</li>
+<li>Speed derived from consecutive position deltas</li>
+<li>Vectorized COG: COG decomposed into <code>sin(COG)</code> and <code>cos(COG)</code> to preserve angular continuity (avoiding the 0°/360° discontinuity)</li>
+</ul>
+<p>The vectorization of COG is important. A raw COG value of 359° and one of 1° are 2° apart in reality but 358 apart numerically. Any distance-based model operating on raw COG will produce incorrect results near the wrap-around.</p>
+<h3>Feature Set</h3>
+<p>The final feature vector per time step was:</p>
+<pre class="codehilite"><code>[LAT, LON, SOG, sin(COG), cos(COG), Heading]
+</code></pre>
+
+<h2>Ensemble Anomaly Detection</h2>
+<h3>Why an Ensemble?</h3>
+<p>A single unsupervised anomaly detector makes strong assumptions about the data distribution. Trajectories in a busy port region like Long Beach exhibit multi-modal behavior: vessels accelerating, decelerating, waiting at anchor, making port approaches. No single model captures all of this well. An ensemble pools the inductive biases of multiple algorithms, reducing the chance that a quirk in one model's assumptions produces systematic false positives or false negatives.</p>
+<h3>Algorithms</h3>
+<p><strong>Gaussian Mixture Model (GMM)</strong></p>
+<p>GMM models the data as a mixture of K Gaussian components. A point is anomalous if its likelihood under the fitted mixture is below a threshold:</p>
+<pre class="codehilite"><code>anomaly score = -log p(x) where p(x) = sum_k pi_k * N(x | mu_k, Sigma_k)
+</code></pre>
+
+<p>GMM is effective when the normal behavior clusters into distinct modes (e.g., vessels at different speeds in different corridor segments). The contamination fraction parameter controls what fraction of points are declared anomalous.</p>
+<p><strong>K-Nearest Neighbors (KNN)</strong></p>
+<p>The anomaly score of a point is the average distance to its K nearest neighbors. Points in sparse regions — far from any cluster of normal behavior — receive high scores. KNN makes no distributional assumption, which makes it robust to non-Gaussian data but sensitive to the choice of K and to high-dimensional spaces.</p>
+<p><strong>Local Outlier Factor (LOF)</strong></p>
+<p>LOF extends KNN by comparing the local density of a point to the local densities of its neighbors:</p>
+<pre class="codehilite"><code>LOF_k(x) = (1/k) * sum_{o in N_k(x)} lrd_k(o) / lrd_k(x)
+</code></pre>
+
+<p>where <code>lrd_k(x)</code> is the local reachability density of point x. A point with LOF &gt;&gt; 1 is in a sparser region than its neighbors, indicating an outlier. LOF handles heterogeneous density — a common property of port region AIS data where vessels cluster along shipping lanes but spread out in open water.</p>
+<p><strong>One-Class SVM (OC-SVM)</strong></p>
+<p>OC-SVM learns a decision boundary in a kernel-induced feature space that encloses the majority of training points. At inference time, points outside the boundary are anomalous. The key hyperparameters are the kernel (RBF in our case), <code>nu</code> (upper bound on the fraction of outliers), and <code>gamma</code> (RBF bandwidth). OC-SVM handles high-dimensional data well and makes no explicit distributional assumption, but it does not scale well to very large datasets.</p>
+<p><strong>Isolation Forest (IF)</strong></p>
+<p>Isolation Forest isolates anomalies rather than profiling normal behavior. It builds an ensemble of random decision trees, each constructed by repeatedly selecting a random feature and a random split value. Anomalous points — which occupy sparse, low-density regions — require fewer splits to isolate than normal points. The anomaly score is inversely proportional to the average path length across the tree ensemble:</p>
+<pre class="codehilite"><code>score(x) = 2^(-E[h(x)] / c(n))
+</code></pre>
+
+<p>where <code>h(x)</code> is the path length and <code>c(n)</code> is the expected path length for a dataset of size n. Isolation Forest is efficient (linear in n) and handles high-dimensional data without suffering from the curse of dimensionality as severely as distance-based methods.</p>
+<p><strong>Clustering-Based Local Outlier Factor (CBLOF)</strong></p>
+<p>CBLOF first clusters the data (using k-means), then computes an outlier score based on the size of the cluster a point belongs to and its distance to the nearest large cluster. Points in small clusters that are far from the main clusters receive high anomaly scores. This two-stage approach is more computationally tractable than computing full pairwise distances across the dataset.</p>
+<h3>Voting Mechanism</h3>
+<p>Each model outputs a binary label per data point: normal (0) or anomalous (1). The <strong>agreement score</strong> for a point is the count of models that labelled it anomalous:</p>
+<pre class="codehilite"><code>agreement_score(x) = sum_{m in models} label_m(x)    where label_m(x) in {0, 1}
+</code></pre>
+
+<p>The agreement score ranges from 0 (no model flagged it) to 6 (all models agreed it is anomalous). This is a hard voting ensemble — each model has equal weight.</p>
+<h2>Decision Function</h2>
+<p>The agreement score operates at the point level. We need a trajectory-level decision. The decision function has two thresholds:</p>
+<ol>
+<li>
+<p><strong>Point-level threshold (agreement score):</strong> A point is considered anomalous if <code>agreement_score &gt;= T_agreement</code>. We evaluated T_agreement ∈ {3, 4}.</p>
+</li>
+<li>
+<p><strong>Trajectory-level threshold (anomaly fraction):</strong> A trajectory is classified as anomalous if the fraction of anomalous points within it exceeds <code>T_fraction</code>. We evaluated T_fraction ∈ {0.05, 0.10}.</p>
+</li>
+</ol>
+<p>The full parameter space we evaluated:</p>
+<table>
+<thead>
+<tr>
+<th>min_length</th>
+<th>Duration (min)</th>
+<th>outliers_fraction</th>
+<th>T_agreement</th>
+<th>T_fraction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100</td>
+<td>1</td>
+<td>0.02</td>
+<td>4</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>300</td>
+<td>2</td>
+<td>0.04</td>
+<td>3</td>
+<td>0.10</td>
+</tr>
+</tbody>
+</table>
+<p>The two-level filter serves an important purpose: a single noisy GPS fix should not flag an entire voyage as anomalous. The trajectory-level threshold ensures that a meaningful proportion of the trajectory exhibits unusual behavior before it is labelled.</p>
+<h2>Results</h2>
+<p>With <code>T_agreement = 4</code> and <code>T_fraction = 0.05</code>, the final classification was:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Normal points</th>
+<th>Anomalous points</th>
+<th>Normal trajectories</th>
+<th>Anomalous trajectories</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Count</td>
+<td>16,129</td>
+<td>14</td>
+<td>13,893</td>
+<td>2,250</td>
+</tr>
+</tbody>
+</table>
+<p>The small number of anomalous points relative to anomalous trajectories means most anomalous trajectories were flagged by a small but consistent cluster of unusual readings within an otherwise normal voyage — which is a realistic signature of, for example, a vessel briefly deviating from its lane.</p>
+<h3>Cross-Type Generalization</h3>
+<p>The models were trained exclusively on cargo vessel trajectories. When tested on passenger vessels, the ensemble successfully flagged genuinely unusual passenger trajectories while leaving normal ones untouched. This suggests the learned notion of normality captures fundamental kinematic structure rather than vessel-type-specific patterns.</p>
+<h3>Notable Finding: On-Land Trajectory</h3>
+<p>One flagged trajectory placed the vessel on land. This is a known AIS data artifact — GPS spoofing, signal multipath, or data entry error can produce impossible positions. The ensemble correctly identified this as anomalous despite no explicit spatial validity check in the feature set.</p>
+<h3>False Positives and Explainability</h3>
+<p>Some flagged trajectories showed no obvious anomaly on visual inspection of their SOG, COG, and Heading time series. This is where the absence of ground truth labels makes evaluation hard. It is not possible to definitively classify these as false positives — they might reflect anomalies that are real but not visually obvious (e.g., spatial position relative to shipping lanes, which requires overlaying chart data). This points to the core explainability challenge in unsupervised anomaly detection: the model can output a score but cannot articulate which feature combination drove the decision.</p>
+<h2>Challenges</h2>
+<p><strong>No ground truth labels.</strong> All evaluation was qualitative (visual inspection of trajectories). Without labeled anomalies, quantitative metrics like precision, recall, and F1 cannot be computed. This makes it impossible to compare models rigorously or to tune thresholds in a principled way.</p>
+<p><strong>Parameter sensitivity.</strong> The contamination fraction <code>outliers_fraction</code> passed to each model has a large effect on how many points are flagged. Small changes to this parameter cascade into large changes in the agreement score distribution and ultimately in trajectory-level classifications. The two configurations we tested produced meaningfully different results.</p>
+<p><strong>Computational cost.</strong> Running six models over per-minute AIS time series for hundreds of vessels is expensive. OC-SVM in particular does not scale well; training time grows quadratically with the number of samples. In practice, subsampling or approximate methods would be needed for real-time operation.</p>
+<p><strong>COG circularity.</strong> Beyond vectorization, COG presents a challenge because vessels near ports frequently maneuver, producing rapidly changing COG values. This increases the variance of the COG features and can cause models to flag normal maneuvering as anomalous.</p>
+<h2>Future Directions</h2>
+<p><strong>Labeled evaluation.</strong> The most impactful improvement would be domain expert annotation of a subset of flagged trajectories. Even a few hundred labeled examples would allow proper precision-recall evaluation and threshold optimization.</p>
+<p><strong>COLREGs-based rules.</strong> The Convention on the International Regulations for Preventing Collisions at Sea defines legally required navigation behavior. Hard-coding these rules as a pre- or post-processing step would catch a class of anomalies that statistical models are not designed to detect.</p>
+<p><strong>Deep sequence models.</strong> LSTM autoencoders and Variational Autoencoders (VAEs) can learn compressed representations of normal trajectory sequences and flag trajectories that reconstruct poorly. Unlike the point-wise models used here, sequence models capture temporal dependencies across the full trajectory. The reconstruction error from an LSTM autoencoder provides a natural anomaly score without requiring a separate voting step.</p>
+<p><strong>Additional data sources.</strong> Ocean current and weather data, port entry/exit schedules, and vessel draft (to infer loading state) would all add context that pure AIS kinematics cannot provide.</p>
+<p><strong>Real-time deployment.</strong> A production system would require: streaming ingestion of AIS data, online or sliding-window model updates to handle concept drift (seasonal traffic changes, new shipping lanes), and a serving layer that can flag anomalies within seconds of the relevant data arriving.</p>
+<hr />
+<p>The system works, produces interpretable outputs for obvious anomalies, and generalizes across vessel types — a strong result for a fully unsupervised approach on real-world data. The main open question is how well it handles the subtle cases that matter most operationally, which is ultimately an evaluation problem: with labeled ground truth, the remaining gaps become measurable and fixable. The future directions above are all tractable steps toward a production-grade system.</p></main>
+
+<div id="website-sprite" data-state="idle" role="img" aria-label="Draggable pixel art figure">
+  <img src="/public/images/me-pixel-standing.png" alt="" draggable="false">
+</div>
+
+<footer role="contentinfo">
+    <hr />
+    <small>
+        <a href="#top">&uarr; Top of the page</a><span>&nbsp;|&nbsp;</span><a href="/contact">Contact</a><span>&nbsp;|&nbsp;</span><a href="/rss.xml">RSS</a><br>
+        The content for this website is <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
+        The <a href="https://github.com/erdemuysalx/erdemuysalx.github.io">code for this website</a>
+        is <a href="https://github.com/erdemuysalx/erdemuysalx.github.io/blob/main/LICENSE">GNU GPLv3.0</a>.
+    </small>
+</footer>
+<script src="/public/js/main.js?v=1782066253"></script>
+</body>
+</html>
