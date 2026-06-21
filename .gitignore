@@ -1,7 +1,9 @@
 .venv/
 .vscode/
+.claude/
 build/
 __pycache__/
 *.pyc
 *.pyo
 .uv/
+
